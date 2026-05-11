@@ -1,0 +1,52 @@
+/**
+ * Rare Input — Theme Variables
+ * Edit these to retheme the entire site globally.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* ── Warm Neutral Scale ───────────────────────────────── */
+    --color-brand-50:  #faf9f7;
+    --color-brand-100: #f2efe9;
+    --color-brand-200: #e8e2d9;
+    --color-brand-300: #d5cdc0;
+    --color-brand-400: #b8ad9e;
+    --color-brand-500: #9c8e7d;
+    --color-brand-600: #7d6e5d;
+    --color-brand-700: #5e5149;
+    --color-brand-800: #3d3530;
+    --color-brand-900: #1e1a17;
+    --color-brand-950: #0f0d0b;
+
+    /* ── Accent (warm amber/gold) ─────────────────────────── */
+    /* Change just these three to retheme the whole site       */
+    --color-accent-light: #fdf4e7;
+    --color-accent:       #e8a838;
+    --color-accent-dark:  #b87d1a;
+
+    /* ── Semantic Aliases ─────────────────────────────────── */
+    --color-bg:         #fffefb;
+    --color-surface:    #faf9f6;
+    --color-surface-2:  #f4f0ea;
+    --color-border:     #e8e2d9;
+    --color-border-strong: #d5cdc0;
+    --color-text:       #2d2926;
+    --color-text-muted: #7d6e5d;
+    --color-text-light: #b8ad9e;
+    --color-heading:    #1a1512;
+
+    /* ── Typography ───────────────────────────────────────── */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    /* ── Layout ───────────────────────────────────────────── */
+    --max-width:     1400px;
+    --radius-card:   1rem;
+    --radius-btn:    0.5rem;
+    --radius-input:  0.5rem;
+
+    /* ── Shadows ──────────────────────────────────────────── */
+    --shadow-sm:  0 1px 3px 0 rgba(30,26,23,0.06), 0 1px 2px -1px rgba(30,26,23,0.04);
+    --shadow-md:  0 4px 16px -2px rgba(30,26,23,0.10), 0 2px 6px -2px rgba(30,26,23,0.06);
+    --shadow-lg:  0 12px 40px -4px rgba(30,26,23,0.14), 0 4px 12px -4px rgba(30,26,23,0.08);
+}

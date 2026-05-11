@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" width="200" height="40">
+  <!-- Icon mark -->
+  <rect width="40" height="40" rx="10" fill="#1a1512"/>
+  <path d="M6 9h11l7 11-7 11H6l7-11-7-11z" fill="white" opacity="0.9"/>
+  <path d="M20 9h11l-7 11 7 11H20l7-11-7-11z" fill="white" opacity="0.45"/>
+
+  <!-- Wordmark -->
+  <text
+    x="52"
+    y="26"
+    font-family="Inter, ui-sans-serif, system-ui, sans-serif"
+    font-size="17"
+    font-weight="700"
+    letter-spacing="-0.4"
+    fill="#1a1512">Rare Input</text>
+</svg>

@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Mail;
+
+use App\Models\Contact;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+class ContactAcknowledgement extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public function __construct(public Contact $contact) {}
+
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            from: new Address(config('contact.from_address'), config('app.name')),
+            subject: 'We received your message — Rare Input',
+        );
+    }
+
+    public function content(): Content
+    {
+        return new Content(
+            view: 'emails.contact-acknowledgement',
+        );
+    }
+}
