@@ -347,7 +347,7 @@
 
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                     <div class="stat-card" style="padding: 1.5rem;">
-                        <div style="font-size: 2.25rem; font-weight: 800; color: #a78bfa; letter-spacing: -0.03em; line-height: 1;">₹2.4 Cr+</div>
+                        <div style="font-size: 2.25rem; font-weight: 800; color: #a78bfa; letter-spacing: -0.03em; line-height: 1;">$3M+</div>
                         <p style="font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 0.35rem;">Revenue generated for clients in the last 12 months</p>
                     </div>
                     <div class="stat-card" style="padding: 1.5rem;">
@@ -470,7 +470,7 @@
             </div>
             @php
             $faqs = [
-                ['q' => 'How much does a custom Shopify store cost?', 'a' => 'It depends on scope — a custom theme build typically starts at ₹80,000. We provide a fixed-price quote after the discovery call so there are no surprises.'],
+                ['q' => 'How much does a custom Shopify store cost?', 'a' => 'It depends on scope — a custom theme build typically starts at $1,000. We provide a fixed-price quote after the discovery call so there are no surprises.'],
                 ['q' => 'How long does it take to build a Shopify store?', 'a' => 'Typically 3–5 weeks for a full custom build. Simple projects can go live in 2 weeks. We give you a timeline during the discovery call.'],
                 ['q' => 'Do you work with existing stores or only new ones?', 'a' => 'Both. We rebuild existing stores, optimise live ones, migrate from other platforms, or build brand-new stores from scratch.'],
                 ['q' => 'What\'s included in the free audit?', 'a' => 'PageSpeed scores, Core Web Vitals, conversion funnel gaps, mobile UX issues, and specific recommendations. Delivered as a written report + a 30-min walk-through call.'],

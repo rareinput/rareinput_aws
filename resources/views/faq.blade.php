@@ -92,7 +92,7 @@
                     ['Do you publish pricing on your website?', 'We do not publish fixed prices because every project is different. After an initial call we will send a detailed proposal with a clear scope and cost breakdown — no vague estimates.'],
                     ['How do payments work?', 'Development projects are typically split into milestones — a deposit upfront, payments at key stages, and a final payment on completion. Marketing retainers are billed monthly. We will confirm the structure in our proposal.'],
                     ['Do you require a deposit?', 'Yes. We require a deposit before starting any project. This is typically 30–50% of the total project value, depending on scope.'],
-                    ['What currencies do you accept?', 'We accept INR, USD, and GBP. If you are paying in a different currency, let us know and we will find a workable arrangement.'],
+                    ['What currencies do you accept?', 'We accept USD, GBP, and EUR. If you are paying in a different currency, let us know and we will find a workable arrangement.'],
                 ] as [$q, $a])
                 <details class="group rounded-xl border" style="border-color: var(--color-border); background-color: var(--color-bg);">
                     <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer font-semibold text-sm list-none" style="color: var(--color-heading);">

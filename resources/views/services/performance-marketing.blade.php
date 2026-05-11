@@ -153,7 +153,7 @@
         </div>
         <div class="space-y-4">
             @foreach([
-                ['What is the minimum ad budget you work with?', 'We typically recommend a minimum monthly ad spend of ₹30,000–₹50,000 to generate enough data to optimise effectively. Our management fee is charged separately on top of ad spend.'],
+                ['What is the minimum ad budget you work with?', 'We typically recommend a minimum monthly ad spend of $500–$1,000 to generate enough data to optimise effectively. Our management fee is charged separately on top of ad spend.'],
                 ['Do you run both Google and Meta ads?', 'Yes. We manage campaigns across Google Ads (Search, Display, Shopping, YouTube) and Meta Ads (Facebook and Instagram). We will recommend the right mix based on your business and audience.'],
                 ['How do you measure success?', 'We track metrics that matter to your business — ROAS, cost per lead, cost per acquisition, and revenue. Vanity metrics like impressions and clicks are secondary to actual business outcomes.'],
                 ['Do I need a landing page before we start?', 'A strong landing page significantly improves results. If you do not have one, we can build or optimise it as part of the engagement. Sending paid traffic to a poorly converting page wastes budget.'],

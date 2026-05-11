@@ -64,7 +64,7 @@
                 <div class="p-3 rounded border" style="border-color: var(--color-border);">
                     <div class="grid grid-cols-3 gap-3 items-center">
                         <input type="text" :name="`content[why_us][stats][${index}][value]`"
-                               x-model="item.value" placeholder="₹2.4 Cr+"
+                               x-model="item.value" placeholder="$3M+"
                                class="px-3 py-2 text-sm border rounded outline-none"
                                style="border-color: var(--color-border); border-radius: var(--radius-btn);">
                         <input type="text" :name="`content[why_us][stats][${index}][label]`"
