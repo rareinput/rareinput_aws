@@ -36,7 +36,7 @@
     --color-heading:    #1a1512;
 
     /* ── Typography ───────────────────────────────────────── */
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
 
     /* ── Layout ───────────────────────────────────────────── */
     --max-width:     1400px;
