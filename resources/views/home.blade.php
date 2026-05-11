@@ -302,7 +302,7 @@
             </div>
 
             {{-- Right — 3D carousel --}}
-            <div class="relative flex items-center justify-center" style="height: min(340px, 85vw);">
+            <div class="relative flex items-center justify-center" style="height: 340px;">
                 @php
                 $tools = [
                     ['name' => 'Shopify',      'bg' => '#ffffff'],
@@ -320,12 +320,12 @@
                 @endphp
 
                 {{-- Scene with perspective --}}
-                <div id="tools-3d" style="position: relative; width: 100%; height: 100%; perspective: 900px; perspective-origin: 50% 50%;">
+                <div id="tools-3d" style="position: relative; width: 100%; height: 100%; perspective: 900px; perspective-origin: 50% 50%;" class="tools-3d-wrap">
                     {{-- 3D stage preserving transforms --}}
                     <div id="tools-stage" style="position: absolute; inset: 0; transform-style: preserve-3d; display: flex; align-items: center; justify-content: center;">
 
                         {{-- Left card --}}
-                        <div id="tool-left" class="absolute flex items-center justify-center rounded-2xl select-none max-lg:!hidden"
+                        <div id="tool-left" class="absolute flex items-center justify-center rounded-2xl select-none"
                              style="width: 290px; height: 290px;
                                     transform: translateX(-210px) translateZ(-120px) rotateY(42deg);
                                     opacity: 0.7;
@@ -335,7 +335,7 @@
 
                         {{-- Center card --}}
                         <div id="tool-center" class="absolute flex items-center justify-center rounded-2xl select-none"
-                             style="width: min(290px, 80vw); height: min(290px, 80vw);
+                             style="width: 290px; height: 290px;
                                     transform: translateX(0) translateZ(0) rotateY(0deg);
                                     opacity: 1;
                                     transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
@@ -343,7 +343,7 @@
                                     box-shadow: 0 25px 70px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08);"></div>
 
                         {{-- Right card --}}
-                        <div id="tool-right" class="absolute flex items-center justify-center rounded-2xl select-none max-lg:!hidden"
+                        <div id="tool-right" class="absolute flex items-center justify-center rounded-2xl select-none"
                              style="width: 290px; height: 290px;
                                     transform: translateX(210px) translateZ(-120px) rotateY(-42deg);
                                     opacity: 0.7;
@@ -357,6 +357,14 @@
     </div>
 </section>
 
+<style>
+    @media (max-width: 1023px) {
+        .tools-3d-wrap { transform: scale(0.7); transform-origin: center center; }
+    }
+    @media (max-width: 639px) {
+        .tools-3d-wrap { transform: scale(0.6); transform-origin: center center; }
+    }
+</style>
 <script>
     var toolsList = {!! $toolsJson !!};
     var svgs = {
