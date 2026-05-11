@@ -200,7 +200,7 @@
     {{-- ── Footer ─────────────────────────────────────────── --}}
     <footer style="background-color: var(--color-brand-900); color: var(--color-brand-300);">
         <div class="mx-auto px-6 pt-16 pb-10" style="max-width: var(--max-width);">
-            <div class="grid grid-cols-1 md:grid-cols-6 gap-10 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-0 md:gap-10 mb-12">
 
                 {{-- Brand --}}
                 <div class="md:col-span-2">
@@ -218,49 +218,50 @@
                     </p>
                 </div>
 
-                {{-- Development --}}
-                <div class="text-sm">
-                    <p class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--color-brand-500);">Development</p>
-                    <ul class="space-y-2.5">
-                        <li><a href="{{ route('services.shopify') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Shopify</a></li>
-                        <li><a href="{{ route('services.wordpress') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">WordPress</a></li>
-                        <li><a href="{{ route('services.web-development') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Web Development</a></li>
-                        <li><a href="{{ route('services.app-development') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">App Development</a></li>
+                @foreach([
+                    ['title' => 'Development', 'links' => [
+                        ['label' => 'Shopify',         'route' => 'services.shopify'],
+                        ['label' => 'WordPress',       'route' => 'services.wordpress'],
+                        ['label' => 'Web Development', 'route' => 'services.web-development'],
+                        ['label' => 'App Development', 'route' => 'services.app-development'],
+                    ]],
+                    ['title' => 'Marketing', 'links' => [
+                        ['label' => 'SEO',                    'route' => 'services.seo'],
+                        ['label' => 'Performance Marketing',  'route' => 'services.performance-marketing'],
+                        ['label' => 'Email Marketing',        'route' => 'services.email-marketing'],
+                        ['label' => 'Social Media',           'route' => 'services.social-media'],
+                    ]],
+                    ['title' => 'Company', 'links' => [
+                        ['label' => 'About',   'route' => 'about'],
+                        ['label' => 'Blog',    'route' => 'blog.index'],
+                        ['label' => 'Contact', 'route' => 'contact'],
+                        ['label' => 'Careers', 'route' => 'careers'],
+                    ]],
+                    ['title' => 'Information', 'links' => [
+                        ['label' => 'Help Center',        'route' => null],
+                        ['label' => 'FAQ',                'route' => 'faq'],
+                        ['label' => 'Terms & Conditions', 'route' => 'terms'],
+                        ['label' => 'Privacy Policy',     'route' => 'privacy-policy'],
+                    ]],
+                ] as $i => $col)
+                <div class="text-sm border-t md:border-t-0 md:border-b-0" style="border-color: var(--color-brand-800);">
+                    <button
+                        onclick="toggleFooterCol({{ $i }})"
+                        class="w-full flex items-center justify-between py-3 md:py-0 md:cursor-default font-semibold text-xs uppercase tracking-widest md:mb-4"
+                        style="color: var(--color-brand-500); background: none; border: none;"
+                    >
+                        {{ $col['title'] }}
+                        <svg id="footer-chevron-{{ $i }}" class="md:hidden transition-transform duration-200" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <ul id="footer-col-{{ $i }}" class="hidden md:block space-y-2.5 pb-3 md:pb-0">
+                        @foreach($col['links'] as $link)
+                        <li>
+                            <a href="{{ $link['route'] ? route($link['route']) : '#' }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">{{ $link['label'] }}</a>
+                        </li>
+                        @endforeach
                     </ul>
                 </div>
-
-                {{-- Marketing --}}
-                <div class="text-sm">
-                    <p class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--color-brand-500);">Marketing</p>
-                    <ul class="space-y-2.5">
-                        <li><a href="{{ route('services.seo') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">SEO</a></li>
-                        <li><a href="{{ route('services.performance-marketing') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Performance Marketing</a></li>
-                        <li><a href="{{ route('services.email-marketing') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Email Marketing</a></li>
-                        <li><a href="{{ route('services.social-media') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Social Media</a></li>
-                    </ul>
-                </div>
-
-                {{-- Company --}}
-                <div class="text-sm">
-                    <p class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--color-brand-500);">Company</p>
-                    <ul class="space-y-2.5">
-                        <li><a href="{{ route('about') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">About</a></li>
-                        <li><a href="{{ route('blog.index') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Blog</a></li>
-                        <li><a href="{{ route('contact') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Contact</a></li>
-                        <li><a href="{{ route('careers') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Careers</a></li>
-                    </ul>
-                </div>
-
-                {{-- Information --}}
-                <div class="text-sm">
-                    <p class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--color-brand-500);">Information</p>
-                    <ul class="space-y-2.5">
-                        <li><a href="#" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Help Center</a></li>
-                        <li><a href="{{ route('faq') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">FAQ</a></li>
-                        <li><a href="{{ route('terms') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Terms &amp; Conditions</a></li>
-                        <li><a href="{{ route('privacy-policy') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Privacy Policy</a></li>
-                    </ul>
-                </div>
+                @endforeach
             </div>
 
             <div class="pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4 text-xs" style="border-color: var(--color-brand-800); color: var(--color-brand-500);">
@@ -283,6 +284,16 @@
             </div>
         </div>
     </footer>
+    <script>
+    function toggleFooterCol(i) {
+        if (window.innerWidth >= 768) { return; }
+        var ul = document.getElementById('footer-col-' + i);
+        var chevron = document.getElementById('footer-chevron-' + i);
+        var open = !ul.classList.contains('hidden');
+        ul.classList.toggle('hidden', open);
+        chevron.style.transform = open ? '' : 'rotate(180deg)';
+    }
+    </script>
 
     @foreach(json_decode(\App\Models\Setting::get('footer_scripts', '[]'), true) ?? [] as $script)
         {!! $script['code'] !!}

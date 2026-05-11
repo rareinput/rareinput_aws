@@ -302,7 +302,7 @@
             </div>
 
             {{-- Right — 3D carousel --}}
-            <div class="relative flex items-center justify-center" style="height: 340px;">
+            <div class="relative flex items-center justify-center" style="height: min(340px, 85vw);">
                 @php
                 $tools = [
                     ['name' => 'Shopify',      'bg' => '#ffffff'],
@@ -325,7 +325,7 @@
                     <div id="tools-stage" style="position: absolute; inset: 0; transform-style: preserve-3d; display: flex; align-items: center; justify-content: center;">
 
                         {{-- Left card --}}
-                        <div id="tool-left" class="absolute flex items-center justify-center rounded-2xl select-none"
+                        <div id="tool-left" class="absolute flex items-center justify-center rounded-2xl select-none max-lg:!hidden"
                              style="width: 290px; height: 290px;
                                     transform: translateX(-210px) translateZ(-120px) rotateY(42deg);
                                     opacity: 0.7;
@@ -335,7 +335,7 @@
 
                         {{-- Center card --}}
                         <div id="tool-center" class="absolute flex items-center justify-center rounded-2xl select-none"
-                             style="width: 290px; height: 290px;
+                             style="width: min(290px, 80vw); height: min(290px, 80vw);
                                     transform: translateX(0) translateZ(0) rotateY(0deg);
                                     opacity: 1;
                                     transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
@@ -343,7 +343,7 @@
                                     box-shadow: 0 25px 70px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08);"></div>
 
                         {{-- Right card --}}
-                        <div id="tool-right" class="absolute flex items-center justify-center rounded-2xl select-none"
+                        <div id="tool-right" class="absolute flex items-center justify-center rounded-2xl select-none max-lg:!hidden"
                              style="width: 290px; height: 290px;
                                     transform: translateX(210px) translateZ(-120px) rotateY(-42deg);
                                     opacity: 0.7;
