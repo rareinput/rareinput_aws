@@ -31,7 +31,7 @@
                 Performance <span style="color: var(--color-accent-dark);">Marketing</span>
             </h1>
             <p class="text-lg leading-relaxed mb-10" style="color: var(--color-text-muted); max-width: 540px;">
-                ROI-focused paid campaigns across Google and Meta — every rupee tracked, every decision data-driven.
+                ROI-focused paid campaigns across Google and Meta — every dollar tracked, every decision data-driven.
             </p>
             <a href="{{ route('contact') }}" class="btn-primary text-base" style="padding: 0.875rem 2.25rem;">
                 Start Your Campaign

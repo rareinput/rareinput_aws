@@ -17,7 +17,7 @@
         'url'            => route('contact'),
     ],
     'sameAs' => [
-        'https://linkedin.com/company/rare-input/',
+        'https://linkedin.com/company/rareinput/',
         'https://www.facebook.com/rareinput',
         'https://x.com/rareinput',
     ],

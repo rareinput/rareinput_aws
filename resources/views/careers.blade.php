@@ -1,4 +1,8 @@
-<x-layouts.public title="Careers">
+<x-layouts.public
+    title="Careers"
+    description="Join the Rare Input team. We're looking for talented developers, marketers, and strategists who want to do great work for ambitious brands."
+    :canonical="route('careers')"
+>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
     <div class="mx-auto" style="max-width: var(--max-width);">

@@ -83,7 +83,7 @@ sudo apt install -y git
 sudo mkdir -p /var/www/rareinput
 sudo chown ubuntu:ubuntu /var/www/rareinput
 
-git clone YOUR_REPO_URL /var/www/rareinput
+git clone https://github.com/rareinput/rareinput_aws.git /var/www/rareinput
 cd /var/www/rareinput
 ```
 

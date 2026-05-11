@@ -41,11 +41,28 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     {!! $head ?? '' !!}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @foreach(json_decode(\App\Models\Setting::get('head_scripts', '[]'), true) ?? [] as $script)
-        {!! $script['code'] !!}
-    @endforeach
 </head>
 <body class="flex flex-col min-h-screen" style="background-color: var(--color-bg); color: var(--color-text); font-family: var(--font-sans);">
+
+    {{-- ── Cookie Consent Banner ──────────────────────────── --}}
+    @if(\App\Models\Setting::get('cookie_consent_enabled', '1') === '1')
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999; padding:1rem 1.5rem; background-color:var(--color-brand-900); border-top:1px solid rgba(255,255,255,0.08);">
+        <div style="max-width:var(--max-width); margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;">
+            <p style="font-size:0.85rem; color:var(--color-brand-300); margin:0; max-width:640px;">
+                We use cookies to analyse site traffic and improve your experience.
+                <a href="{{ route('privacy-policy') }}" style="color:var(--color-accent); text-decoration:underline;">Privacy Policy</a>
+            </p>
+            <div style="display:flex; gap:0.75rem; flex-shrink:0;">
+                <button id="cookie-decline" style="padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:600; border-radius:var(--radius-btn); border:1px solid rgba(255,255,255,0.2); background:transparent; color:var(--color-brand-300); cursor:pointer;">
+                    Decline
+                </button>
+                <button id="cookie-accept" style="padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:600; border-radius:var(--radius-btn); border:none; background:var(--color-accent); color:var(--color-heading); cursor:pointer;">
+                    Accept
+                </button>
+            </div>
+        </div>
+    </div>
+    @endif
 
     {{-- ── Navbar ─────────────────────────────────────────── --}}
     <header class="sticky top-0 z-50 border-b" style="background-color: rgba(255,254,251,0.95); backdrop-filter: blur(12px); border-color: var(--color-border);">
@@ -65,7 +82,61 @@
             {{-- Desktop nav --}}
             <nav class="hidden md:flex items-center gap-8">
                 <a href="{{ route('home') }}" class="nav-link">Home</a>
-                <a href="{{ route('services.index') }}" class="nav-link">Services</a>
+                <a href="{{ route('about') }}" class="nav-link">About</a>
+
+                {{-- Services dropdown --}}
+                <div class="relative" id="services-dropdown">
+                    <button id="services-btn" class="nav-link flex items-center gap-1" style="background: none; border: none; cursor: pointer; padding: 0;">
+                        Services
+                        <svg id="services-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="transition: transform 0.2s ease;"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+
+                    <div id="services-menu" class="hidden absolute top-full pt-3 z-50" style="min-width: 480px; right: -120px;">
+                        <div class="rounded-2xl border shadow-xl p-6" style="background-color: var(--color-bg); border-color: var(--color-border); box-shadow: var(--shadow-lg);">
+                            <div class="grid grid-cols-2 gap-6">
+
+                                {{-- Development --}}
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color: var(--color-accent-dark);">Development</p>
+                                    <ul class="space-y-1">
+                                        @foreach([
+                                            ['Shopify', 'services.shopify'],
+                                            ['WordPress', 'services.wordpress'],
+                                            ['Web Development', 'services.web-development'],
+                                            ['App Development', 'services.app-development'],
+                                        ] as [$label, $route])
+                                        <li>
+                                            <a href="{{ route($route) }}" class="flex items-center gap-2 py-1.5 text-sm font-medium transition-colors" style="color: var(--color-text-muted);" onmouseover="this.style.backgroundColor='var(--color-surface)';this.style.color='var(--color-heading)';" onmouseout="this.style.backgroundColor='';this.style.color='var(--color-text-muted)';">{{ $label }}
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+
+                                {{-- Marketing --}}
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color: var(--color-accent-dark);">Marketing</p>
+                                    <ul class="space-y-1">
+                                        @foreach([
+                                            ['SEO', 'services.seo'],
+                                            ['Performance Marketing', 'services.performance-marketing'],
+                                            ['Email Marketing', 'services.email-marketing'],
+                                            ['Social Media', 'services.social-media'],
+                                        ] as [$label, $route])
+                                        <li>
+                                            <a href="{{ route($route) }}" class="flex items-center gap-2 py-1.5 text-sm font-medium transition-colors" style="color: var(--color-text-muted);" onmouseover="this.style.backgroundColor='var(--color-surface)';this.style.color='var(--color-heading)';" onmouseout="this.style.backgroundColor='';this.style.color='var(--color-text-muted)';">{{ $label }}
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 <a href="{{ route('blog.index') }}" class="nav-link">Blog</a>
                 <a href="{{ route('contact') }}" class="btn-primary" style="padding: 0.55rem 1.25rem; font-size: 0.875rem;">Get in Touch</a>
             </nav>
@@ -84,7 +155,28 @@
         {{-- Mobile nav --}}
         <div id="mobile-menu" class="hidden md:hidden border-t px-6 py-5 space-y-4" style="border-color: var(--color-border); background-color: var(--color-bg);">
             <a href="{{ route('home') }}" class="nav-link block text-base">Home</a>
-            <a href="{{ route('services.index') }}" class="nav-link block text-base">Services</a>
+            <a href="{{ route('about') }}" class="nav-link block text-base">About</a>
+
+            {{-- Mobile services accordion --}}
+            <div>
+                <button id="mobile-services-btn" class="nav-link flex items-center gap-1 text-base w-full" style="background: none; border: none; cursor: pointer; padding: 0;">
+                    Services
+                    <svg id="mobile-services-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="transition: transform 0.2s ease;"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="mobile-services-menu" class="hidden mt-3 pl-3 border-l space-y-3" style="border-color: var(--color-border);">
+                    <p class="text-xs font-bold uppercase tracking-widest" style="color: var(--color-accent-dark);">Development</p>
+                    <a href="{{ route('services.shopify') }}" class="nav-link block text-sm">Shopify</a>
+                    <a href="{{ route('services.wordpress') }}" class="nav-link block text-sm">WordPress</a>
+                    <a href="{{ route('services.web-development') }}" class="nav-link block text-sm">Web Development</a>
+                    <a href="{{ route('services.app-development') }}" class="nav-link block text-sm">App Development</a>
+                    <p class="text-xs font-bold uppercase tracking-widest pt-1" style="color: var(--color-accent-dark);">Marketing</p>
+                    <a href="{{ route('services.seo') }}" class="nav-link block text-sm">SEO</a>
+                    <a href="{{ route('services.performance-marketing') }}" class="nav-link block text-sm">Performance Marketing</a>
+                    <a href="{{ route('services.email-marketing') }}" class="nav-link block text-sm">Email Marketing</a>
+                    <a href="{{ route('services.social-media') }}" class="nav-link block text-sm">Social Media</a>
+                </div>
+            </div>
+
             <a href="{{ route('blog.index') }}" class="nav-link block text-base">Blog</a>
             <div class="pt-2">
                 <a href="{{ route('contact') }}" class="btn-primary">Get in Touch</a>
@@ -148,7 +240,7 @@
                 <div class="text-sm">
                     <p class="font-semibold mb-4 text-xs uppercase tracking-widest" style="color: var(--color-brand-500);">Company</p>
                     <ul class="space-y-2.5">
-                        <li><a href="{{ route('about') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">About Us</a></li>
+                        <li><a href="{{ route('about') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">About</a></li>
                         <li><a href="{{ route('blog.index') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Blog</a></li>
                         <li><a href="{{ route('contact') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Contact</a></li>
                         <li><a href="{{ route('careers') }}" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">Careers</a></li>
@@ -172,7 +264,7 @@
 
                 {{-- Social icons --}}
                 <div class="flex items-center gap-4">
-                    <a href="https://linkedin.com/company/rare-input/" aria-label="LinkedIn" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">
+                    <a href="https://linkedin.com/company/rareinput/" aria-label="LinkedIn" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">
                         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                     </a>
                     <a href="https://www.facebook.com/rareinput" aria-label="Facebook" class="transition-colors hover:text-white" style="color: var(--color-brand-400);">
@@ -191,7 +283,117 @@
     @foreach(json_decode(\App\Models\Setting::get('footer_scripts', '[]'), true) ?? [] as $script)
         {!! $script['code'] !!}
     @endforeach
+
+    @php
+        $headScriptsJson = json_encode(
+            array_map(fn($s) => $s['code'], json_decode(\App\Models\Setting::get('head_scripts', '[]'), true) ?? [])
+        );
+        $cookieConsentEnabled = \App\Models\Setting::get('cookie_consent_enabled', '1') === '1';
+    @endphp
     <script>
+        // ── Cookie Consent ───────────────────────────────────
+        (function () {
+            var CONSENT_KEY = 'ri_cookie_consent';
+            var EXPIRY_DAYS = 180;
+
+            var EU_TIMEZONES = [
+                'Europe/Amsterdam','Europe/Andorra','Europe/Athens','Europe/Belgrade',
+                'Europe/Berlin','Europe/Bratislava','Europe/Brussels','Europe/Bucharest',
+                'Europe/Budapest','Europe/Busingen','Europe/Chisinau','Europe/Copenhagen',
+                'Europe/Dublin','Europe/Gibraltar','Europe/Guernsey','Europe/Helsinki',
+                'Europe/Isle_of_Man','Europe/Istanbul','Europe/Jersey','Europe/Kaliningrad',
+                'Europe/Kiev','Europe/Kyiv','Europe/Lisbon','Europe/Ljubljana','Europe/London',
+                'Europe/Luxembourg','Europe/Madrid','Europe/Malta','Europe/Mariehamn',
+                'Europe/Minsk','Europe/Monaco','Europe/Moscow','Europe/Nicosia','Europe/Oslo',
+                'Europe/Paris','Europe/Podgorica','Europe/Prague','Europe/Riga','Europe/Rome',
+                'Europe/Samara','Europe/San_Marino','Europe/Sarajevo','Europe/Saratov',
+                'Europe/Simferopol','Europe/Skopje','Europe/Sofia','Europe/Stockholm',
+                'Europe/Tallinn','Europe/Tirane','Europe/Ulyanovsk','Europe/Uzhgorod',
+                'Europe/Vaduz','Europe/Vatican','Europe/Vienna','Europe/Vilnius',
+                'Europe/Volgograd','Europe/Warsaw','Europe/Zagreb','Europe/Zaporozhye',
+                'Europe/Zurich','Atlantic/Reykjavik','Atlantic/Faroe'
+            ];
+
+            var CA_TIMEZONES = ['America/Los_Angeles','America/Vancouver','America/Tijuana'];
+
+            function getConsent() {
+                try {
+                    var item = localStorage.getItem(CONSENT_KEY);
+                    if (!item) { return null; }
+                    var data = JSON.parse(item);
+                    if (Date.now() > data.expires) { localStorage.removeItem(CONSENT_KEY); return null; }
+                    return data.value;
+                } catch (e) { return null; }
+            }
+
+            function setConsent(value) {
+                try {
+                    localStorage.setItem(CONSENT_KEY, JSON.stringify({
+                        value: value,
+                        expires: Date.now() + EXPIRY_DAYS * 86400000
+                    }));
+                } catch (e) {}
+            }
+
+            function loadAnalytics() {
+                var scripts = {!! $headScriptsJson !!};
+                scripts.forEach(function (html) {
+                    var tmp = document.createElement('div');
+                    tmp.innerHTML = html;
+                    tmp.querySelectorAll('script').forEach(function (s) {
+                        var el = document.createElement('script');
+                        if (s.src) { el.src = s.src; el.async = true; }
+                        else { el.textContent = s.textContent; }
+                        document.head.appendChild(el);
+                    });
+                });
+            }
+
+            function needsConsent() {
+                try {
+                    var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    return EU_TIMEZONES.indexOf(tz) !== -1 || CA_TIMEZONES.indexOf(tz) !== -1;
+                } catch (e) { return true; }
+            }
+
+            function hideBanner() {
+                var b = document.getElementById('cookie-banner');
+                if (b) { b.style.display = 'none'; }
+            }
+
+            var consentEnabled = {{ $cookieConsentEnabled ? 'true' : 'false' }};
+            var consent = getConsent();
+
+            if (!consentEnabled) {
+                loadAnalytics();
+            } else if (consent === 'accepted') {
+                loadAnalytics();
+            } else if (consent === 'declined') {
+                // GA stays blocked
+            } else if (!needsConsent()) {
+                setConsent('accepted');
+                loadAnalytics();
+            } else {
+                document.addEventListener('DOMContentLoaded', function () {
+                    var banner = document.getElementById('cookie-banner');
+                    if (banner) { banner.style.display = 'block'; }
+
+                    document.getElementById('cookie-accept').addEventListener('click', function () {
+                        setConsent('accepted');
+                        hideBanner();
+                        loadAnalytics();
+                    });
+
+                    document.getElementById('cookie-decline').addEventListener('click', function () {
+                        setConsent('declined');
+                        hideBanner();
+                    });
+                });
+            }
+        })();
+    </script>
+    <script>
+        // Mobile hamburger
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         const iconOpen = document.getElementById('icon-open');
@@ -200,6 +402,31 @@
             menu.classList.toggle('hidden');
             iconOpen.classList.toggle('hidden');
             iconClose.classList.toggle('hidden');
+        });
+
+        // Services dropdown (hover)
+        const servicesDropdown = document.getElementById('services-dropdown');
+        const servicesMenu = document.getElementById('services-menu');
+        const servicesChevron = document.getElementById('services-chevron');
+
+        servicesDropdown.addEventListener('mouseenter', function () {
+            servicesMenu.classList.remove('hidden');
+            servicesChevron.style.transform = 'rotate(180deg)';
+        });
+
+        servicesDropdown.addEventListener('mouseleave', function () {
+            servicesMenu.classList.add('hidden');
+            servicesChevron.style.transform = '';
+        });
+
+        // Mobile services accordion
+        const mobileServicesBtn = document.getElementById('mobile-services-btn');
+        const mobileServicesMenu = document.getElementById('mobile-services-menu');
+        const mobileServicesChevron = document.getElementById('mobile-services-chevron');
+        mobileServicesBtn.addEventListener('click', function () {
+            const isOpen = !mobileServicesMenu.classList.contains('hidden');
+            mobileServicesMenu.classList.toggle('hidden');
+            mobileServicesChevron.style.transform = isOpen ? '' : 'rotate(180deg)';
         });
     </script>
 </body>

@@ -11,6 +11,24 @@
         @csrf
         @method('PUT')
 
+        {{-- Cookie Consent Toggle --}}
+        <div class="mb-8 p-5 rounded-xl border flex items-center justify-between" style="background-color: var(--color-bg); border-color: var(--color-border);">
+            <div>
+                <h2 class="text-base font-bold" style="color: var(--color-heading);">Cookie Consent Banner</h2>
+                <p class="text-xs mt-0.5" style="color: var(--color-text-muted);">When enabled, shows a consent banner to EU/UK and California visitors before loading analytics scripts.</p>
+            </div>
+            <div x-data="{ enabled: {{ $cookieConsentEnabled ? 'true' : 'false' }} }" style="flex-shrink:0;">
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" name="cookie_consent_enabled" value="1" x-model="enabled" class="sr-only">
+                    <div class="w-11 h-6 rounded-full transition-colors duration-200 relative"
+                         :style="enabled ? 'background-color:var(--color-heading)' : 'background-color:var(--color-border)'">
+                        <div class="absolute top-[2px] left-[2px] w-5 h-5 bg-white rounded-full shadow transition-transform duration-200"
+                             :style="enabled ? 'transform:translateX(20px)' : ''"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
         <div class="grid gap-8" style="grid-template-columns: 1fr 1fr;">
 
             {{-- Head Scripts --}}

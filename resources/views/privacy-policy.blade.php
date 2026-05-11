@@ -1,4 +1,9 @@
-<x-layouts.public title="Privacy Policy">
+<x-layouts.public
+    title="Privacy Policy"
+    description="Learn how Rare Input collects, uses, and protects your personal data in accordance with our privacy policy."
+    :canonical="route('privacy-policy')"
+    :noindex="true"
+>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
     <div class="mx-auto" style="max-width: var(--max-width);">

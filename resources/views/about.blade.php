@@ -1,4 +1,8 @@
-<x-layouts.public title="About Us">
+<x-layouts.public
+    title="About Us"
+    description="Meet the team behind Rare Input — a full-service digital agency passionate about building great products and driving real growth for ambitious brands worldwide."
+    :canonical="route('about')"
+>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
     <div class="mx-auto" style="max-width: var(--max-width);">

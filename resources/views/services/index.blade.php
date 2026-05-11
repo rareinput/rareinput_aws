@@ -90,7 +90,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 @foreach([
                     ['SEO', 'Rank higher, drive consistent organic traffic, and grow your visibility where it matters — on Google.', 'services.seo', ['SEO audit & competitor analysis', 'Keyword & content strategy', 'Technical SEO', 'Link building']],
-                    ['Performance Marketing', 'ROI-focused paid campaigns across Google and Meta — every rupee tracked, every decision data-driven.', 'services.performance-marketing', ['Google Ads management', 'Meta Ads management', 'Conversion tracking', 'A/B testing']],
+                    ['Performance Marketing', 'ROI-focused paid campaigns across Google and Meta — every dollar tracked, every decision data-driven.', 'services.performance-marketing', ['Google Ads management', 'Meta Ads management', 'Conversion tracking', 'A/B testing']],
                     ['Email Marketing', 'Automated sequences and targeted campaigns that nurture leads, retain customers, and drive consistent revenue.', 'services.email-marketing', ['Email strategy & funnels', 'Welcome & onboarding sequences', 'List segmentation', 'ESP setup & management']],
                     ['Social Media Marketing', 'Strategy, content, and community management that builds your brand presence and drives real engagement.', 'services.social-media', ['Content calendar & creation', 'Graphic design for posts', 'Community management', 'Monthly analytics reporting']],
                 ] as [$name, $desc, $route, $features])

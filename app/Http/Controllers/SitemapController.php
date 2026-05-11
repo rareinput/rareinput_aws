@@ -33,8 +33,7 @@ class SitemapController extends Controller
             ->latest('published_at')
             ->get(['slug', 'updated_at']);
 
-        $categories = Category::withCount('posts')
-            ->having('posts_count', '>', 0)
+        $categories = Category::whereHas('posts')
             ->get(['slug', 'updated_at']);
 
         $landingPages = LandingPage::where('status', LandingPageStatus::Published)

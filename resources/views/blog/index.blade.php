@@ -1,4 +1,8 @@
-<x-layouts.public title="Blog">
+<x-layouts.public
+    title="Blog"
+    description="Insights, guides, and expert perspectives on web development, Shopify, SEO, performance marketing, and email marketing from the Rare Input team."
+    :canonical="route('blog.index')"
+>
 
 <section style="background: var(--color-surface); padding: 4rem 1.5rem 3rem; border-bottom: 1px solid var(--color-border);">
     <div class="mx-auto px-6" style="max-width: var(--max-width);">
