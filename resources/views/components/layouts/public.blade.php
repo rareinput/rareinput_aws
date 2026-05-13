@@ -197,6 +197,16 @@
 
     <main class="flex-1">{{ $slot }}</main>
 
+    {{-- ── Floating Mobile CTA ──────────────────────────────── --}}
+    <div class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 md:hidden" style="pointer-events: none;">
+        <a href="{{ route('contact') }}"
+           class="inline-flex items-center gap-2 font-semibold text-sm rounded-full shadow-lg"
+           style="pointer-events: all; padding: 0.75rem 1.75rem; background: var(--color-accent-dark); color: #fff; box-shadow: 0 8px 32px rgba(30,26,23,0.28);">
+            Book a Free Call
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+
     {{-- ── Footer ─────────────────────────────────────────── --}}
     <footer style="background-color: var(--color-brand-900); color: var(--color-brand-300);">
         <div class="mx-auto px-6 pt-16 pb-10" style="max-width: var(--max-width);">
