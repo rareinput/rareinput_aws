@@ -284,6 +284,293 @@
     </div>
 </section>
 
+{{-- ── Social Proof Strip ────────────────────────────────────── --}}
+<section class="px-6 py-16 border-b" style="background-color: var(--color-brand-900); border-color: rgba(255,255,255,0.06);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+        <div class="flex flex-wrap items-center justify-center gap-12" id="stats-strip">
+            @foreach([
+                ['50', '+', '', 'Brands Scaled'],
+                ['3.9', '', 'x', 'Avg. ROAS Delivered'],
+                ['210', '', '%', 'Avg. Organic Growth'],
+                ['24', '', 'h', 'Response Guarantee'],
+            ] as [$num, $prefix, $suffix, $label])
+            <div class="flex items-center gap-3">
+                <span class="stat-num font-extrabold" data-target="{{ $num }}" data-prefix="{{ $prefix }}" data-suffix="{{ $suffix }}" style="font-size: 1.6rem; color: #fff; letter-spacing: -0.03em;">{{ $prefix }}{{ $num }}{{ $suffix }}</span>
+                <span class="text-sm font-medium" style="color: var(--color-brand-400);">{{ $label }}</span>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+<script>
+(function () {
+    var strip = document.getElementById('stats-strip');
+    var animated = false;
+    function animateStats() {
+        if (animated) { return; }
+        animated = true;
+        strip.querySelectorAll('.stat-num').forEach(function (el) {
+            var target = parseFloat(el.dataset.target);
+            var prefix = el.dataset.prefix || '';
+            var suffix = el.dataset.suffix || '';
+            var isDecimal = target % 1 !== 0;
+            var start = 0;
+            var duration = 1400;
+            var startTime = null;
+            function step(ts) {
+                if (!startTime) { startTime = ts; }
+                var progress = Math.min((ts - startTime) / duration, 1);
+                var ease = 1 - Math.pow(1 - progress, 3);
+                var val = start + (target - start) * ease;
+                el.textContent = prefix + (isDecimal ? val.toFixed(1) : Math.round(val)) + suffix;
+                if (progress < 1) { requestAnimationFrame(step); }
+            }
+            requestAnimationFrame(step);
+        });
+    }
+    var observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { animateStats(); }
+    }, { threshold: 0.5 });
+    observer.observe(strip);
+})();
+</script>
+
+{{-- ── Why Rare Input ───────────────────────────────────────── --}}
+<section class="px-6 py-20 border-t" style="background-color: var(--color-surface); border-color: var(--color-border);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+        <div class="text-center mb-14">
+            <span class="section-label">Why Us</span>
+            <h2 class="font-extrabold mb-3" style="font-size: clamp(1.75rem, 3vw, 2.25rem); letter-spacing: -0.03em; color: var(--color-heading);">Why Rare Input?</h2>
+            <p class="mx-auto text-sm leading-relaxed" style="color: var(--color-text-muted); max-width: 420px;">Most agencies specialise in one thing. We do the full stack — and we tie every decision back to your growth.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach([
+                [
+                    'icon' => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>',
+                    'title' => 'One Team, Full Stack',
+                    'desc'  => 'Development, SEO, paid ads, and email — handled by one team with shared context. No handoff gaps, no "that\'s not our department".',
+                    'tags'  => ['Dev + Marketing', 'Unified Strategy', 'Single Point of Contact'],
+                ],
+                [
+                    'icon' => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>',
+                    'title' => 'No Lock-In Contracts',
+                    'desc'  => 'Month-to-month retainers and milestone-based project payments. You stay because the work delivers — not because you\'re contractually stuck.',
+                    'tags'  => ['Month-to-Month', 'Transparent Pricing', 'No Hidden Fees'],
+                ],
+                [
+                    'icon' => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>',
+                    'title' => 'Outcome-Focused',
+                    'desc'  => 'We measure success the same way you do — revenue, traffic, conversions. Every recommendation is backed by data, not agency vanity metrics.',
+                    'tags'  => ['ROI-First', 'Data-Driven', 'Clear Reporting'],
+                ],
+            ] as $item)
+            <div class="card p-8">
+                <div class="flex items-center justify-center rounded-xl mb-5" style="width: 48px; height: 48px; background: var(--color-accent-light); color: var(--color-accent-dark);">
+                    {!! $item['icon'] !!}
+                </div>
+                <h3 class="font-bold mb-2" style="font-size: 1.05rem; color: var(--color-heading); letter-spacing: -0.01em;">{{ $item['title'] }}</h3>
+                <p class="text-sm leading-relaxed mb-5" style="color: var(--color-text-muted);">{{ $item['desc'] }}</p>
+                <div class="flex flex-wrap gap-2">
+                    @foreach($item['tags'] as $tag)
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full" style="background: var(--color-surface-2); color: var(--color-text-muted);">{{ $tag }}</span>
+                    @endforeach
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- ── Industries We Serve ──────────────────────────────────── --}}
+<section class="px-6 py-20 border-t border-b" style="background-color: var(--color-bg); border-color: var(--color-border);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+            <div>
+                <span class="section-label">Who We Work With</span>
+                <h2 class="font-extrabold mt-2 mb-4" style="font-size: clamp(1.75rem, 3vw, 2.25rem); letter-spacing: -0.03em; color: var(--color-heading);">Built for Ambitious<br>Brands Across Industries</h2>
+                <p class="leading-relaxed" style="font-size: 1rem; color: var(--color-text-muted); max-width: 420px;">Whether you're launching, scaling, or rebuilding — we've worked with businesses like yours and know what it takes to grow in your market.</p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+                @foreach([
+                    ['D2C & E-commerce', '#'],
+                    ['SaaS & Tech', '#'],
+                    ['Fashion & Apparel', '#'],
+                    ['Health & Wellness', '#'],
+                    ['Food & Beverage', '#'],
+                    ['Education & EdTech', '#'],
+                    ['Professional Services', '#'],
+                    ['Real Estate', '#'],
+                    ['Beauty & Personal Care', '#'],
+                    ['Retail & Consumer Goods', '#'],
+                    ['Hospitality & Travel', '#'],
+                    ['Media & Publishing', '#'],
+                ] as [$industry, $link])
+                <span class="inline-flex items-center text-sm font-semibold px-4 py-2 rounded-full border transition-colors duration-200"
+                      style="background: var(--color-bg); border-color: var(--color-border-strong); color: var(--color-text-muted);">
+                    {{ $industry }}
+                </span>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ── Services Accordion ────────────────────────────────── --}}
+<section id="services" class="px-6 py-24 border-t" style="background-color: var(--color-brand-900); border-color: rgba(255,255,255,0.06);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+
+        <div class="text-center mb-16">
+            <span class="section-label" style="color: var(--color-accent);">What We Specialise In</span>
+            <h2 class="font-extrabold text-white" style="font-size: 2.25rem; letter-spacing: -0.03em;">Our Core Services</h2>
+        </div>
+
+        <div id="services-accordion" class="flex flex-col gap-3" onmouseleave="closeAllAccordions()">
+            @php
+            $accordionServices = [
+                [
+                    'num'   => '01',
+                    'title' => 'Shopify & E-commerce',
+                    'desc'  => 'We build Shopify stores that convert — custom themes, full-stack builds, app integrations, and ongoing optimisation. From launch to scale.',
+                    'tags'  => ['Custom Themes', 'Shopify Plus', 'App Integration', 'Conversion Optimisation'],
+                    'route' => 'services.shopify',
+                ],
+                [
+                    'num'   => '02',
+                    'title' => 'Web & App Development',
+                    'desc'  => 'Custom websites, web apps, portals, and mobile apps built on Laravel, Next.js, and React Native. We design for performance and built to scale.',
+                    'tags'  => ['Laravel', 'Next.js', 'React Native', 'API Development'],
+                    'route' => 'services.web-development',
+                ],
+                [
+                    'num'   => '03',
+                    'title' => 'SEO & Organic Growth',
+                    'desc'  => 'Technical SEO, content strategy, and link building that compounds over time. We help you rank, get found, and bring in qualified traffic.',
+                    'tags'  => ['Technical SEO', 'Content Strategy', 'Link Building', 'Local SEO'],
+                    'route' => 'services.seo',
+                ],
+                [
+                    'num'   => '04',
+                    'title' => 'Performance Marketing',
+                    'desc'  => 'ROI-first paid campaigns across Google and Meta. Every dollar tracked, every decision backed by data. We optimise for revenue, not just clicks.',
+                    'tags'  => ['Google Ads', 'Meta Ads', 'Retargeting', 'A/B Testing'],
+                    'route' => 'services.performance-marketing',
+                ],
+                [
+                    'num'   => '05',
+                    'title' => 'Email & Social Media',
+                    'desc'  => 'Automated email flows that nurture and convert, paired with social strategies that build audiences and drive engagement across every channel.',
+                    'tags'  => ['Email Automation', 'Klaviyo', 'Instagram', 'Content Creation'],
+                    'route' => 'services.email-marketing',
+                ],
+            ];
+            @endphp
+
+            @foreach($accordionServices as $i => $service)
+            <div class="accordion-item rounded-2xl overflow-hidden transition-all duration-300"
+                 style="background-color: rgba(255,255,255,0.07);"
+                 onmouseenter="openAccordion({{ $i }})">
+                <div class="accordion-header flex items-center justify-between px-8 py-6 cursor-pointer select-none">
+                    <div class="flex items-center gap-6">
+                        <span class="text-xs font-bold tabular-nums" style="color: rgba(255,255,255,0.4);">{{ $service['num'] }}.</span>
+                        <span class="accordion-title font-extrabold text-white transition-colors duration-300" style="font-size: clamp(1.25rem, 2.5vw, 1.6rem); letter-spacing: -0.02em;">{{ $service['title'] }}</span>
+                    </div>
+                </div>
+                <div class="accordion-body overflow-hidden transition-all duration-700" style="max-height: 0;">
+                    <div class="px-8 pb-8">
+                        <p class="leading-relaxed mb-6" style="font-size: 1rem; color: rgba(255,255,255,0.65);">{{ $service['desc'] }}</p>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            @foreach($service['tags'] as $tag)
+                            <span class="text-xs font-semibold px-3 py-1.5 rounded-full" style="background-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.12);">{{ $tag }}</span>
+                            @endforeach
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <a href="{{ route($service['route']) }}" class="inline-flex items-center text-sm font-semibold tracking-wide uppercase" style="padding: 0.6rem 1.5rem; border: 1.5px solid rgba(255,255,255,0.6); border-radius: var(--radius-btn); color: #fff; letter-spacing: 0.06em;">
+                                Learn More
+                            </a>
+                            <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 text-sm font-semibold" style="padding: 0.6rem 1.5rem; border-radius: var(--radius-btn); background: #fff; color: var(--color-accent-dark);">
+                                Book a Free Call
+                                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- ── Service CTA Banner ───────────────────────────────────── --}}
+<div class="px-6 py-5 border-t border-b" style="background-color: var(--color-surface-2); border-color: var(--color-border);">
+    <div class="mx-auto flex items-center justify-between gap-6" style="max-width: var(--max-width);">
+        <p class="font-semibold" style="font-size: clamp(0.95rem, 1.5vw, 1.05rem); color: var(--color-heading);">Ready to build something that actually grows your business?</p>
+        <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 font-semibold text-sm whitespace-nowrap shrink-0" style="padding: 0.75rem 1.75rem; border-radius: var(--radius-btn); background: var(--color-accent-dark); color: #fff;">
+            Start The Journey
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+    </div>
+</div>
+
+<script>
+    function openAccordion(index) {
+        const items = document.querySelectorAll('#services-accordion .accordion-item');
+        items.forEach(function(item, i) {
+            const body = item.querySelector('.accordion-body');
+            const title = item.querySelector('.accordion-title');
+            if (i === index) {
+                body.style.maxHeight = body.scrollHeight + 'px';
+                item.style.backgroundColor = 'var(--color-accent-dark)';
+                title.style.color = '#fff';
+            } else {
+                body.style.maxHeight = '0';
+                item.style.backgroundColor = 'rgba(255,255,255,0.07)';
+                title.style.color = '#fff';
+            }
+        });
+    }
+    function closeAllAccordions() {
+        const items = document.querySelectorAll('#services-accordion .accordion-item');
+        items.forEach(function(item) {
+            item.querySelector('.accordion-body').style.maxHeight = '0';
+            item.style.backgroundColor = 'rgba(255,255,255,0.07)';
+        });
+    }
+</script>
+
+{{-- ── How We Work ─────────────────────────────────────────── --}}
+<section class="px-6 py-24" style="background-color: var(--color-bg);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+        <div class="text-center mb-16">
+            <span class="section-label">Our Process</span>
+            <h2 class="font-extrabold mb-4" style="font-size: 2.25rem; letter-spacing: -0.03em; color: var(--color-heading);">How We Work</h2>
+            <p class="mx-auto leading-relaxed" style="font-size: 1rem; color: var(--color-text-muted); max-width: 460px;">A clear, repeatable process that keeps you informed and in control at every stage.</p>
+        </div>
+
+        {{-- Connector line sits behind the circles row --}}
+        <div class="relative">
+            <div class="hidden lg:block absolute h-px top-6" style="left: 10%; right: 10%; background: var(--color-border-strong); z-index: 0;"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                @foreach([
+                    ['01', 'Discovery', 'We start by understanding your business, goals, and competitive landscape — not with a pitch deck.'],
+                    ['02', 'Strategy', 'We map out a clear plan: what to build, what to prioritise, and how to measure success.'],
+                    ['03', 'Build', 'Design and development in focused sprints with regular check-ins so nothing is a surprise.'],
+                    ['04', 'Launch', 'Thorough QA, performance checks, and a smooth handover. We stay available post-launch.'],
+                    ['05', 'Grow', 'Ongoing optimisation — SEO, campaigns, and conversion improvements that compound over time.'],
+                ] as [$num, $title, $desc])
+                <div class="relative flex flex-col items-center text-center" style="z-index: 1;">
+                    <div class="flex items-center justify-center rounded-full font-extrabold mb-5 shrink-0" style="width: 48px; height: 48px; background: var(--color-accent-light); color: var(--color-accent-dark); font-size: 0.8rem; border: 2px solid var(--color-accent);">{{ $num }}</div>
+                    <h3 class="font-bold mb-2" style="font-size: 1rem; color: var(--color-heading);">{{ $title }}</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--color-text-muted);">{{ $desc }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- ── Tools / Tech Stack ────────────────────────────────────── --}}
 <section class="px-6 py-24" style="background-color: var(--color-brand-950);">
     <div class="mx-auto" style="max-width: var(--max-width);">
@@ -435,313 +722,8 @@
     })();
 </script>
 
-
-{{-- ── Why Rare Input ───────────────────────────────────────── --}}
-<section class="px-6 py-20 border-t" style="background-color: var(--color-bg); border-color: var(--color-border);">
-    <div class="mx-auto" style="max-width: var(--max-width);">
-        <div class="text-center mb-14">
-            <span class="section-label">Why Us</span>
-            <h2 class="font-extrabold mb-3" style="font-size: clamp(1.75rem, 3vw, 2.25rem); letter-spacing: -0.03em; color: var(--color-heading);">Why Rare Input?</h2>
-            <p class="mx-auto text-sm leading-relaxed" style="color: var(--color-text-muted); max-width: 420px;">Most agencies specialise in one thing. We do the full stack — and we tie every decision back to your growth.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            @foreach([
-                [
-                    'icon' => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>',
-                    'title' => 'One Team, Full Stack',
-                    'desc'  => 'Development, SEO, paid ads, and email — handled by one team with shared context. No handoff gaps, no "that\'s not our department".',
-                    'tags'  => ['Dev + Marketing', 'Unified Strategy', 'Single Point of Contact'],
-                ],
-                [
-                    'icon' => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>',
-                    'title' => 'No Lock-In Contracts',
-                    'desc'  => 'Month-to-month retainers and milestone-based project payments. You stay because the work delivers — not because you\'re contractually stuck.',
-                    'tags'  => ['Month-to-Month', 'Transparent Pricing', 'No Hidden Fees'],
-                ],
-                [
-                    'icon' => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>',
-                    'title' => 'Outcome-Focused',
-                    'desc'  => 'We measure success the same way you do — revenue, traffic, conversions. Every recommendation is backed by data, not agency vanity metrics.',
-                    'tags'  => ['ROI-First', 'Data-Driven', 'Clear Reporting'],
-                ],
-            ] as $item)
-            <div class="card p-8">
-                <div class="flex items-center justify-center rounded-xl mb-5" style="width: 48px; height: 48px; background: var(--color-accent-light); color: var(--color-accent-dark);">
-                    {!! $item['icon'] !!}
-                </div>
-                <h3 class="font-bold mb-2" style="font-size: 1.05rem; color: var(--color-heading); letter-spacing: -0.01em;">{{ $item['title'] }}</h3>
-                <p class="text-sm leading-relaxed mb-5" style="color: var(--color-text-muted);">{{ $item['desc'] }}</p>
-                <div class="flex flex-wrap gap-2">
-                    @foreach($item['tags'] as $tag)
-                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full" style="background: var(--color-surface-2); color: var(--color-text-muted);">{{ $tag }}</span>
-                    @endforeach
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- ── Social Proof Strip ────────────────────────────────────── --}}
-<section class="px-6 py-16 border-b" style="background-color: var(--color-surface); border-color: var(--color-border);">
-    <div class="mx-auto" style="max-width: var(--max-width);">
-        <div class="flex flex-wrap items-center justify-center gap-12" id="stats-strip">
-            @foreach([
-                ['50', '+', '', 'Brands Scaled'],
-                ['3.9', '', 'x', 'Avg. ROAS Delivered'],
-                ['210', '', '%', 'Avg. Organic Growth'],
-                ['24', '', 'h', 'Response Guarantee'],
-            ] as [$num, $prefix, $suffix, $label])
-            <div class="flex items-center gap-3">
-                <span class="stat-num font-extrabold" data-target="{{ $num }}" data-prefix="{{ $prefix }}" data-suffix="{{ $suffix }}" style="font-size: 1.6rem; color: var(--color-heading); letter-spacing: -0.03em;">{{ $prefix }}{{ $num }}{{ $suffix }}</span>
-                <span class="text-sm font-medium" style="color: var(--color-text-muted);">{{ $label }}</span>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-<script>
-(function () {
-    var strip = document.getElementById('stats-strip');
-    var animated = false;
-    function animateStats() {
-        if (animated) { return; }
-        animated = true;
-        strip.querySelectorAll('.stat-num').forEach(function (el) {
-            var target = parseFloat(el.dataset.target);
-            var prefix = el.dataset.prefix || '';
-            var suffix = el.dataset.suffix || '';
-            var isDecimal = target % 1 !== 0;
-            var start = 0;
-            var duration = 1400;
-            var startTime = null;
-            function step(ts) {
-                if (!startTime) { startTime = ts; }
-                var progress = Math.min((ts - startTime) / duration, 1);
-                var ease = 1 - Math.pow(1 - progress, 3);
-                var val = start + (target - start) * ease;
-                el.textContent = prefix + (isDecimal ? val.toFixed(1) : Math.round(val)) + suffix;
-                if (progress < 1) { requestAnimationFrame(step); }
-            }
-            requestAnimationFrame(step);
-        });
-    }
-    var observer = new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) { animateStats(); }
-    }, { threshold: 0.5 });
-    observer.observe(strip);
-})();
-</script>
-
-{{-- ── Services Accordion ────────────────────────────────── --}}
-<section id="services" class="px-6 py-24 border-t" style="background-color: var(--color-brand-900); border-color: rgba(255,255,255,0.06);">
-    <div class="mx-auto" style="max-width: var(--max-width);">
-
-        <div class="text-center mb-16">
-            <span class="section-label" style="color: var(--color-accent);">What We Specialise In</span>
-            <h2 class="font-extrabold text-white" style="font-size: 2.25rem; letter-spacing: -0.03em;">Our Core Services</h2>
-        </div>
-
-        <div id="services-accordion" class="flex flex-col gap-3" onmouseleave="closeAllAccordions()">
-            @php
-            $accordionServices = [
-                [
-                    'num'   => '01',
-                    'title' => 'Shopify & E-commerce',
-                    'desc'  => 'We build Shopify stores that convert — custom themes, full-stack builds, app integrations, and ongoing optimisation. From launch to scale.',
-                    'tags'  => ['Custom Themes', 'Shopify Plus', 'App Integration', 'Conversion Optimisation'],
-                    'route' => 'services.shopify',
-                ],
-                [
-                    'num'   => '02',
-                    'title' => 'Web & App Development',
-                    'desc'  => 'Custom websites, web apps, portals, and mobile apps built on Laravel, Next.js, and React Native. We design for performance and built to scale.',
-                    'tags'  => ['Laravel', 'Next.js', 'React Native', 'API Development'],
-                    'route' => 'services.web-development',
-                ],
-                [
-                    'num'   => '03',
-                    'title' => 'SEO & Organic Growth',
-                    'desc'  => 'Technical SEO, content strategy, and link building that compounds over time. We help you rank, get found, and bring in qualified traffic.',
-                    'tags'  => ['Technical SEO', 'Content Strategy', 'Link Building', 'Local SEO'],
-                    'route' => 'services.seo',
-                ],
-                [
-                    'num'   => '04',
-                    'title' => 'Performance Marketing',
-                    'desc'  => 'ROI-first paid campaigns across Google and Meta. Every dollar tracked, every decision backed by data. We optimise for revenue, not just clicks.',
-                    'tags'  => ['Google Ads', 'Meta Ads', 'Retargeting', 'A/B Testing'],
-                    'route' => 'services.performance-marketing',
-                ],
-                [
-                    'num'   => '05',
-                    'title' => 'Email & Social Media',
-                    'desc'  => 'Automated email flows that nurture and convert, paired with social strategies that build audiences and drive engagement across every channel.',
-                    'tags'  => ['Email Automation', 'Klaviyo', 'Instagram', 'Content Creation'],
-                    'route' => 'services.email-marketing',
-                ],
-            ];
-            @endphp
-
-            @foreach($accordionServices as $i => $service)
-            <div class="accordion-item rounded-2xl overflow-hidden transition-all duration-300"
-                 style="background-color: rgba(255,255,255,0.07);"
-                 onmouseenter="openAccordion({{ $i }})">
-                <div class="accordion-header flex items-center justify-between px-8 py-6 cursor-pointer select-none">
-                    <div class="flex items-center gap-6">
-                        <span class="text-xs font-bold tabular-nums" style="color: rgba(255,255,255,0.4);">{{ $service['num'] }}.</span>
-                        <span class="accordion-title font-extrabold text-white transition-colors duration-300" style="font-size: clamp(1.25rem, 2.5vw, 1.6rem); letter-spacing: -0.02em;">{{ $service['title'] }}</span>
-                    </div>
-                </div>
-                <div class="accordion-body overflow-hidden transition-all duration-700" style="max-height: 0;">
-                    <div class="px-8 pb-8">
-                        <p class="leading-relaxed mb-6" style="font-size: 1rem; color: rgba(255,255,255,0.65);">{{ $service['desc'] }}</p>
-                        <div class="flex flex-wrap gap-2 mb-8">
-                            @foreach($service['tags'] as $tag)
-                            <span class="text-xs font-semibold px-3 py-1.5 rounded-full" style="background-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.12);">{{ $tag }}</span>
-                            @endforeach
-                        </div>
-                        <div class="flex flex-wrap items-center gap-3">
-                            <a href="{{ route($service['route']) }}" class="inline-flex items-center text-sm font-semibold tracking-wide uppercase" style="padding: 0.6rem 1.5rem; border: 1.5px solid rgba(255,255,255,0.6); border-radius: var(--radius-btn); color: #fff; letter-spacing: 0.06em;">
-                                Learn More
-                            </a>
-                            <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 text-sm font-semibold" style="padding: 0.6rem 1.5rem; border-radius: var(--radius-btn); background: #fff; color: var(--color-accent-dark);">
-                                Book a Free Call
-                                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- ── Service CTA Banner ───────────────────────────────────── --}}
-<div class="px-6 py-6" style="background-color: var(--color-bg);">
-    <div class="mx-auto" style="max-width: var(--max-width);">
-        <div class="flex items-center justify-between gap-6 rounded-full px-8 py-5" style="background-color: var(--color-surface-2); border: 1px solid var(--color-border);">
-            <p class="font-semibold" style="font-size: clamp(0.95rem, 1.5vw, 1.05rem); color: var(--color-heading);">Ready to build something that actually grows your business?</p>
-            <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 font-semibold text-sm whitespace-nowrap rounded-full shrink-0" style="padding: 0.75rem 1.75rem; background: var(--color-accent-dark); color: #fff;">
-                Start The Journey
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
-            </a>
-        </div>
-    </div>
-</div>
-
-<script>
-    function openAccordion(index) {
-        const items = document.querySelectorAll('#services-accordion .accordion-item');
-        items.forEach(function(item, i) {
-            const body = item.querySelector('.accordion-body');
-            const title = item.querySelector('.accordion-title');
-            if (i === index) {
-                body.style.maxHeight = body.scrollHeight + 'px';
-                item.style.backgroundColor = 'var(--color-accent-dark)';
-                title.style.color = '#fff';
-            } else {
-                body.style.maxHeight = '0';
-                item.style.backgroundColor = 'rgba(255,255,255,0.07)';
-                title.style.color = '#fff';
-            }
-        });
-    }
-    function closeAllAccordions() {
-        const items = document.querySelectorAll('#services-accordion .accordion-item');
-        items.forEach(function(item) {
-            item.querySelector('.accordion-body').style.maxHeight = '0';
-            item.style.backgroundColor = 'rgba(255,255,255,0.07)';
-        });
-    }
-</script>
-
-{{-- ── Service CTA Banner ───────────────────────────────────── --}}
-
-{{-- ── How We Work ─────────────────────────────────────────── --}}
-<section class="px-6 py-24" style="background-color: var(--color-bg);">
-    <div class="mx-auto" style="max-width: var(--max-width);">
-        <div class="text-center mb-16">
-            <span class="section-label">Our Process</span>
-            <h2 class="font-extrabold mb-4" style="font-size: 2.25rem; letter-spacing: -0.03em; color: var(--color-heading);">How We Work</h2>
-            <p class="mx-auto leading-relaxed" style="font-size: 1rem; color: var(--color-text-muted); max-width: 460px;">A clear, repeatable process that keeps you informed and in control at every stage.</p>
-        </div>
-
-        {{-- Connector line sits behind the circles row --}}
-        <div class="relative">
-            <div class="hidden lg:block absolute h-px top-6" style="left: 10%; right: 10%; background: var(--color-border-strong); z-index: 0;"></div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                @foreach([
-                    ['01', 'Discovery', 'We start by understanding your business, goals, and competitive landscape — not with a pitch deck.'],
-                    ['02', 'Strategy', 'We map out a clear plan: what to build, what to prioritise, and how to measure success.'],
-                    ['03', 'Build', 'Design and development in focused sprints with regular check-ins so nothing is a surprise.'],
-                    ['04', 'Launch', 'Thorough QA, performance checks, and a smooth handover. We stay available post-launch.'],
-                    ['05', 'Grow', 'Ongoing optimisation — SEO, campaigns, and conversion improvements that compound over time.'],
-                ] as [$num, $title, $desc])
-                <div class="relative flex flex-col items-center text-center" style="z-index: 1;">
-                    <div class="flex items-center justify-center rounded-full font-extrabold mb-5 shrink-0" style="width: 48px; height: 48px; background: var(--color-accent-light); color: var(--color-accent-dark); font-size: 0.8rem; border: 2px solid var(--color-accent);">{{ $num }}</div>
-                    <h3 class="font-bold mb-2" style="font-size: 1rem; color: var(--color-heading);">{{ $title }}</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--color-text-muted);">{{ $desc }}</p>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- ── Industries We Serve ──────────────────────────────────── --}}
-<section class="px-6 py-20 border-t border-b" style="background-color: var(--color-surface); border-color: var(--color-border);">
-    <div class="mx-auto" style="max-width: var(--max-width);">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-
-            <div>
-                <span class="section-label">Who We Work With</span>
-                <h2 class="font-extrabold mt-2 mb-4" style="font-size: clamp(1.75rem, 3vw, 2.25rem); letter-spacing: -0.03em; color: var(--color-heading);">Built for Ambitious<br>Brands Across Industries</h2>
-                <p class="leading-relaxed" style="font-size: 1rem; color: var(--color-text-muted); max-width: 420px;">Whether you're launching, scaling, or rebuilding — we've worked with businesses like yours and know what it takes to grow in your market.</p>
-            </div>
-
-            <div class="flex flex-wrap gap-3">
-                @foreach([
-                    ['D2C & E-commerce', '#'],
-                    ['SaaS & Tech', '#'],
-                    ['Fashion & Apparel', '#'],
-                    ['Health & Wellness', '#'],
-                    ['Food & Beverage', '#'],
-                    ['Education & EdTech', '#'],
-                    ['Professional Services', '#'],
-                    ['Real Estate', '#'],
-                    ['Beauty & Personal Care', '#'],
-                    ['Retail & Consumer Goods', '#'],
-                    ['Hospitality & Travel', '#'],
-                    ['Media & Publishing', '#'],
-                ] as [$industry, $link])
-                <span class="inline-flex items-center text-sm font-semibold px-4 py-2 rounded-full border transition-colors duration-200"
-                      style="background: var(--color-bg); border-color: var(--color-border-strong); color: var(--color-text-muted);">
-                    {{ $industry }}
-                </span>
-                @endforeach
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- ── CTA Banner ────────────────────────────────────────────── --}}
-<section class="px-6 py-24 text-center" style="background-color: var(--color-surface);">
-    <div class="mx-auto" style="max-width: 600px;">
-        <span class="section-label">Ready to grow?</span>
-        <h2 class="font-extrabold mb-5" style="font-size: 2.25rem; letter-spacing: -0.03em; line-height: 1.2; color: var(--color-heading);">Most projects start with<br>a 20-minute call</h2>
-        <p class="leading-relaxed mb-10" style="font-size: 1rem; color: var(--color-text-muted);">No pitch deck, no pressure. Just a straight conversation about your goals and whether we're the right fit.</p>
-        <a href="{{ route('contact') }}" class="btn-accent">
-            Book a Free Call
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-    </div>
-</section>
-
-{{-- ── FAQ ───────────────────────────────────────────────────── --}}
-<section class="px-6 py-24" style="background-color: var(--color-brand-950);">
+{{-- ── FAQ ─────────────────────────────────────────────────── --}}
+<section class="px-6 py-24" style="background-color: var(--color-brand-900);">
     <div class="mx-auto" style="max-width: var(--max-width);">
         <div class="grid grid-cols-1 md:grid-cols-5 gap-16 items-start">
 
@@ -804,5 +786,69 @@
     }
 </script>
 
+{{-- ── Blog Teaser ──────────────────────────────────────────── --}}
+@if($latestPosts->isNotEmpty())
+<section class="px-6 py-24" style="background-color: var(--color-bg);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+        <div class="flex items-end justify-between mb-12">
+            <div>
+                <span class="section-label">From The Blog</span>
+                <h2 class="font-extrabold mt-2" style="font-size: clamp(1.75rem, 3vw, 2.25rem); letter-spacing: -0.03em; color: var(--color-heading);">Insights & Thinking</h2>
+            </div>
+            <a href="{{ route('blog.index') }}" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold" style="color: var(--color-accent-dark);">
+                View All Posts
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach($latestPosts as $post)
+            <a href="{{ route('blog.show', $post->slug) }}" class="card group flex flex-col overflow-hidden" style="text-decoration: none;">
+                @if($post->featured_image)
+                <div class="overflow-hidden" style="height: 200px;">
+                    <img src="{{ $post->featured_image }}" alt="{{ $post->featured_image_alt ?? $post->title }}"
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                @else
+                <div class="flex items-center justify-center" style="height: 200px; background: var(--color-surface-2);">
+                    <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: var(--color-text-light);"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"/></svg>
+                </div>
+                @endif
+                <div class="p-6 flex flex-col flex-1">
+                    @if($post->categories->isNotEmpty())
+                    <span class="text-xs font-bold uppercase tracking-widest mb-3" style="color: var(--color-accent-dark);">{{ $post->categories->first()->name }}</span>
+                    @endif
+                    <h3 class="font-bold leading-snug mb-3 group-hover:text-amber-700 transition-colors" style="font-size: 1rem; color: var(--color-heading);">{{ $post->title }}</h3>
+                    @if($post->excerpt)
+                    <p class="text-sm leading-relaxed mb-4 flex-1" style="color: var(--color-text-muted);">{{ Str::limit($post->excerpt, 100) }}</p>
+                    @endif
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t" style="border-color: var(--color-border);">
+                        <span class="text-xs" style="color: var(--color-text-light);">{{ $post->published_at->format('M d, Y') }}</span>
+                        <span class="text-xs font-semibold" style="color: var(--color-accent-dark);">Read →</span>
+                    </div>
+                </div>
+            </a>
+            @endforeach
+        </div>
+
+        <div class="mt-8 text-center sm:hidden">
+            <a href="{{ route('blog.index') }}" class="btn-secondary text-sm">View All Posts</a>
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- ── CTA Banner ────────────────────────────────────────────── --}}
+<section class="px-6 py-24 text-center" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%);">
+    <div class="mx-auto" style="max-width: 600px;">
+        <span class="section-label">Ready to grow?</span>
+        <h2 class="font-extrabold mb-5" style="font-size: 2.25rem; letter-spacing: -0.03em; line-height: 1.2; color: var(--color-heading);">Most projects start with<br>a 20-minute call</h2>
+        <p class="leading-relaxed mb-10" style="font-size: 1rem; color: var(--color-text-muted);">No pitch deck, no pressure. Just a straight conversation about your goals and whether we're the right fit.</p>
+        <a href="{{ route('contact') }}" class="btn-accent">
+            Book a Free Call
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+</section>
 
 </x-layouts.public>
