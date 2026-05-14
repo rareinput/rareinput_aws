@@ -26,70 +26,87 @@
             <span style="color: var(--color-heading);">Performance Marketing</span>
         </div>
         <div class="max-w-2xl">
-            <span class="section-label">Digital Marketing</span>
+            <span class="section-label">Paid Media</span>
             <h1 class="font-extrabold leading-none mb-6" style="font-size: clamp(2.75rem, 5vw, 4rem); letter-spacing: -0.035em; color: var(--color-heading);">
                 Performance <span style="color: var(--color-accent-dark);">Marketing</span>
             </h1>
             <p class="text-lg leading-relaxed mb-10" style="color: var(--color-text-muted); max-width: 540px;">
                 ROI-focused paid campaigns across Google and Meta — every dollar tracked, every decision data-driven.
             </p>
-            <a href="{{ route('contact') }}" class="btn-primary text-base" style="padding: 0.875rem 2.25rem;">
-                Start Your Campaign
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+            <div class="flex flex-wrap gap-4 items-center">
+                <a href="{{ route('contact') }}" class="btn-primary text-base" style="padding: 0.875rem 2.25rem;">
+                    Start Your Campaign
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#process" class="text-sm font-semibold" style="color: var(--color-text-muted);">See how it works ↓</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="px-6 py-10 border-b" style="background-color: var(--color-surface); border-color: var(--color-border);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+        <div class="flex flex-wrap items-center justify-center gap-12">
+            @foreach([['3.9x','Avg. ROAS delivered across accounts'],['4–8 wks','Time to meaningful campaign optimisation'],['Weekly','Transparent reporting on spend & returns']] as [$stat,$label])
+            <div class="text-center">
+                <div class="font-extrabold" style="font-size: 1.6rem; color: var(--color-heading); letter-spacing: -0.03em;">{{ $stat }}</div>
+                <div class="text-xs font-medium mt-1" style="color: var(--color-text-muted);">{{ $label }}</div>
+            </div>
+            @endforeach
         </div>
     </div>
 </section>
 
 <section class="px-6 py-24">
     <div class="mx-auto" style="max-width: var(--max-width);">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-14">
             <div>
                 <span class="section-label">What's Included</span>
                 <h2 class="font-extrabold mb-6" style="font-size: 2rem; letter-spacing: -0.03em; color: var(--color-heading);">Paid ads that pay back</h2>
-                <p class="leading-relaxed mb-8" style="font-size: 0.975rem; color: var(--color-text-muted);">We manage your paid media end-to-end — from strategy and creative to campaign management and optimisation.</p>
-                <ul class="space-y-4">
-                    @foreach([
-                        'Google Ads (Search, Display, Shopping, YouTube)',
-                        'Meta Ads (Facebook & Instagram)',
-                        'Audience research & targeting strategy',
-                        'Ad creative & copywriting',
-                        'Landing page optimisation',
-                        'Conversion tracking & pixel setup',
-                        'A/B testing & creative iteration',
-                        'Weekly & monthly performance reporting',
-                    ] as $item)
-                    <li class="flex items-start gap-3 text-sm" style="color: var(--color-text);">
-                        <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color: var(--color-accent-light);">
-                            <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" style="color: var(--color-accent-dark);"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                        </span>
-                        {{ $item }}
-                    </li>
-                    @endforeach
-                </ul>
+                <p class="leading-relaxed" style="font-size: 0.975rem; color: var(--color-text-muted);">We manage your paid media end-to-end — from strategy and creative to campaign management and optimisation.</p>
             </div>
-            <div class="grid grid-cols-2 gap-5">
+            <ul class="space-y-4 lg:pt-2">
                 @foreach([
-                    ['Precise Targeting', 'Reach the right audience at the right moment.'],
-                    ['Data Driven', 'Every decision backed by real performance data.'],
-                    ['Constant Testing', 'Continuous A/B testing to improve results over time.'],
-                    ['ROI Focused', 'We optimise for profit, not just clicks.'],
-                ] as [$title, $desc])
-                <div class="card p-6">
-                    <h3 class="font-bold mb-1.5" style="font-size: 0.9rem; color: var(--color-heading);">{{ $title }}</h3>
-                    <p class="text-xs leading-relaxed" style="color: var(--color-text-muted);">{{ $desc }}</p>
-                </div>
+                    'Google Ads (Search, Display, Shopping, YouTube)',
+                    'Meta Ads (Facebook & Instagram)',
+                    'Audience research & targeting strategy',
+                    'Ad creative & copywriting',
+                    'Landing page optimisation',
+                    'Conversion tracking & pixel setup',
+                    'A/B testing & creative iteration',
+                    'Weekly & monthly performance reporting',
+                ] as $item)
+                <li class="flex items-start gap-3 text-sm" style="color: var(--color-text);">
+                    <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color: var(--color-accent-light);">
+                        <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" style="color: var(--color-accent-dark);"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    </span>
+                    {{ $item }}
+                </li>
                 @endforeach
+            </ul>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            @foreach([
+                ['Precise Targeting', 'Reach the right audience at the right moment.'],
+                ['Data Driven', 'Every decision backed by real performance data.'],
+                ['Constant Testing', 'Continuous A/B testing to improve results over time.'],
+                ['ROI Focused', 'We optimise for profit, not just clicks.'],
+            ] as [$title, $desc])
+            <div class="card p-6">
+                <h3 class="font-bold mb-2" style="font-size: 0.9rem; color: var(--color-heading);">{{ $title }}</h3>
+                <p class="text-sm leading-relaxed" style="color: var(--color-text-muted);">{{ $desc }}</p>
             </div>
+            @endforeach
         </div>
     </div>
 </section>
 
-<section class="px-6 py-24" style="background-color: var(--color-surface);">
+<section id="process" class="px-6 py-24" style="background-color: var(--color-surface);">
     <div class="mx-auto" style="max-width: var(--max-width);">
         <div class="text-center mb-16">
             <span class="section-label">Our Process</span>
             <h2 class="font-extrabold mb-4" style="font-size: 2rem; letter-spacing: -0.03em; color: var(--color-heading);">How we work</h2>
+            <p class="mx-auto leading-relaxed" style="font-size: 0.975rem; color: var(--color-text-muted); max-width: 460px;">Every campaign is built on research, not guesswork — here is the process.</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach([
@@ -138,12 +155,18 @@
     </div>
 </section>
 
-<x-testimonials :testimonials="[
-    ['quote' => 'Our Google Ads ROAS went from 1.8x to 4.2x in three months. Rare Input completely restructured our campaigns and the difference was immediate.', 'name' => 'Nisha P.', 'role' => 'Founder'],
-    ['quote' => 'We were burning through budget with our previous agency and had nothing to show for it. Rare Input cut our wasted spend by 40% in the first month and scaled what was actually working.', 'name' => 'Chris O.', 'role' => 'Marketing Director'],
-    ['quote' => 'The creative they produced for our Meta campaigns outperformed everything we had tested before. They understand both the data and the creative side, which is rare.', 'name' => 'Meera K.', 'role' => 'Growth Manager'],
-    ['quote' => 'Full transparency every week — what we spent, what we made, what changed and why. It felt like having a performance marketing expert in-house without the overhead.', 'name' => 'Ben H.', 'role' => 'Co-Founder'],
-]" />
+<section class="px-6 py-12 border-t border-b" style="background: linear-gradient(135deg, var(--color-brand-900) 0%, #2a2017 100%); border-color: var(--color-brand-900);">
+    <div class="mx-auto flex flex-col sm:flex-row items-center justify-between gap-6" style="max-width: var(--max-width);">
+        <div>
+            <p class="font-bold text-white mb-1" style="font-size: 1.05rem;">Want to see what your ad budget could actually return?</p>
+            <p class="text-sm" style="color: var(--color-brand-400);">Tell us your goals and we'll build a campaign strategy around them.</p>
+        </div>
+        <a href="{{ route('contact') }}" class="btn-accent shrink-0">
+            Start My Campaign
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+</section>
 
 <section class="px-6 py-24" style="background-color: var(--color-surface);">
     <div class="mx-auto" style="max-width: 760px;">
@@ -171,13 +194,30 @@
     </div>
 </section>
 
+<section class="px-6 py-16 border-t border-b" style="background-color: var(--color-surface); border-color: var(--color-border);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+        <p class="text-xs font-bold uppercase tracking-widest mb-6" style="color: var(--color-text-muted);">Pair this with</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            @foreach([
+                ['SEO & Organic Growth', 'Build a traffic channel that doesn\'t stop when the budget does.', 'services.seo'],
+                ['Email Marketing', 'Capture and convert the leads your ads generate with automated email flows.', 'services.email-marketing'],
+            ] as [$title, $desc, $route])
+            <a href="{{ route($route) }}" class="block p-7 rounded-xl border transition-colors duration-200 group hover:border-[var(--color-accent-dark)]" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <div class="font-bold mb-2 group-hover:underline" style="font-size: 0.95rem; color: var(--color-heading);">{{ $title }}</div>
+                <div class="text-sm leading-relaxed" style="color: var(--color-text-muted);">{{ $desc }}</div>
+            </a>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 <section class="px-6 py-24 text-center" style="background-color: var(--color-brand-900);">
     <div class="mx-auto" style="max-width: 600px;">
         <span class="section-label" style="color: var(--color-accent);">Ready to scale?</span>
         <h2 class="font-extrabold mb-5 text-white" style="font-size: 2.25rem; letter-spacing: -0.03em; line-height: 1.2;">Let's make your ad spend work harder</h2>
         <p class="leading-relaxed mb-10" style="font-size: 1rem; color: var(--color-brand-400);">Tell us your goals and we'll build a campaign strategy around them.</p>
         <a href="{{ route('contact') }}" class="btn-accent">
-            Get in Touch
+            Scale My Ad Campaigns
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
     </div>

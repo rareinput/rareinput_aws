@@ -26,66 +26,82 @@
             <span style="color: var(--color-heading);">SEO</span>
         </div>
         <div class="max-w-2xl">
-            <span class="section-label">Digital Marketing</span>
+            <span class="section-label">SEO & Content</span>
             <h1 class="font-extrabold leading-none mb-6" style="font-size: clamp(2.75rem, 5vw, 4rem); letter-spacing: -0.035em; color: var(--color-heading);">
                 Search Engine <span style="color: var(--color-accent-dark);">Optimisation</span>
             </h1>
             <p class="text-lg leading-relaxed mb-10" style="color: var(--color-text-muted); max-width: 540px;">
                 Rank higher, drive consistent organic traffic, and grow your visibility where it matters — on Google.
             </p>
-            <a href="{{ route('contact') }}" class="btn-primary text-base" style="padding: 0.875rem 2.25rem;">
-                Get a Free SEO Audit
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+            <div class="flex flex-wrap gap-4 items-center">
+                <a href="{{ route('contact') }}" class="btn-primary text-base" style="padding: 0.875rem 2.25rem;">
+                    Get a Free SEO Audit
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#process" class="text-sm font-semibold" style="color: var(--color-text-muted);">See how it works ↓</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="px-6 py-10 border-b" style="background-color: var(--color-surface); border-color: var(--color-border);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+        <div class="flex flex-wrap items-center justify-center gap-12">
+            @foreach([['210%','Avg. organic traffic growth'],['3–6 mo','When meaningful ranking movement starts'],['Monthly','Clear reporting — rankings, traffic, conversions']] as [$stat,$label])
+            <div class="text-center">
+                <div class="font-extrabold" style="font-size: 1.6rem; color: var(--color-heading); letter-spacing: -0.03em;">{{ $stat }}</div>
+                <div class="text-xs font-medium mt-1" style="color: var(--color-text-muted);">{{ $label }}</div>
+            </div>
+            @endforeach
         </div>
     </div>
 </section>
 
 <section class="px-6 py-24">
     <div class="mx-auto" style="max-width: var(--max-width);">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-14">
             <div>
                 <span class="section-label">What's Included</span>
                 <h2 class="font-extrabold mb-6" style="font-size: 2rem; letter-spacing: -0.03em; color: var(--color-heading);">Full-spectrum SEO that actually works</h2>
-                <p class="leading-relaxed mb-8" style="font-size: 0.975rem; color: var(--color-text-muted);">We don't chase quick wins that vanish. We build sustainable organic growth through technical excellence, content strategy, and authority building.</p>
-                <ul class="space-y-4">
-                    @foreach([
-                        'Comprehensive SEO audit & competitor analysis',
-                        'Keyword research & content strategy',
-                        'On-page SEO optimisation',
-                        'Technical SEO (speed, crawlability, schema)',
-                        'Link building & authority development',
-                        'Local SEO & Google Business Profile',
-                        'Monthly performance reporting',
-                        'Core Web Vitals optimisation',
-                    ] as $item)
-                    <li class="flex items-start gap-3 text-sm" style="color: var(--color-text);">
-                        <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color: var(--color-accent-light);">
-                            <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" style="color: var(--color-accent-dark);"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                        </span>
-                        {{ $item }}
-                    </li>
-                    @endforeach
-                </ul>
+                <p class="leading-relaxed" style="font-size: 0.975rem; color: var(--color-text-muted);">We don't chase quick wins that vanish. We build sustainable organic growth through technical excellence, content strategy, and authority building.</p>
             </div>
-            <div class="grid grid-cols-2 gap-5">
+            <ul class="space-y-4 lg:pt-2">
                 @foreach([
-                    ['Organic Growth', 'Traffic that compounds over time without ongoing ad spend.'],
-                    ['Technical SEO', 'Site structure, speed, and crawlability that search engines love.'],
-                    ['Content Strategy', 'Content that ranks and converts, not just filler articles.'],
-                    ['Link Building', 'Quality backlinks that build your domain authority.'],
-                ] as [$title, $desc])
-                <div class="card p-6">
-                    <h3 class="font-bold mb-1.5" style="font-size: 0.9rem; color: var(--color-heading);">{{ $title }}</h3>
-                    <p class="text-xs leading-relaxed" style="color: var(--color-text-muted);">{{ $desc }}</p>
-                </div>
+                    'Comprehensive SEO audit & competitor analysis',
+                    'Keyword research & content strategy',
+                    'On-page SEO optimisation',
+                    'Technical SEO (speed, crawlability, schema)',
+                    'Link building & authority development',
+                    'Local SEO & Google Business Profile',
+                    'Monthly performance reporting',
+                    'Core Web Vitals optimisation',
+                ] as $item)
+                <li class="flex items-start gap-3 text-sm" style="color: var(--color-text);">
+                    <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color: var(--color-accent-light);">
+                        <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" style="color: var(--color-accent-dark);"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    </span>
+                    {{ $item }}
+                </li>
                 @endforeach
+            </ul>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            @foreach([
+                ['Organic Growth', 'Traffic that compounds over time without ongoing ad spend.'],
+                ['Technical SEO', 'Site structure, speed, and crawlability that search engines love.'],
+                ['Content Strategy', 'Content that ranks and converts, not just filler articles.'],
+                ['Link Building', 'Quality backlinks that build your domain authority.'],
+            ] as [$title, $desc])
+            <div class="card p-6">
+                <h3 class="font-bold mb-2" style="font-size: 0.9rem; color: var(--color-heading);">{{ $title }}</h3>
+                <p class="text-sm leading-relaxed" style="color: var(--color-text-muted);">{{ $desc }}</p>
             </div>
+            @endforeach
         </div>
     </div>
 </section>
 
-<section class="px-6 py-24" style="background-color: var(--color-surface);">
+<section id="process" class="px-6 py-24" style="background-color: var(--color-surface);">
     <div class="mx-auto" style="max-width: var(--max-width);">
         <div class="text-center mb-16">
             <span class="section-label">Our Process</span>
@@ -139,12 +155,18 @@
     </div>
 </section>
 
-<x-testimonials :testimonials="[
-    ['quote' => 'We went from page 4 to position 3 for our main keyword in five months. Organic traffic is up 180% year on year. The results speak for themselves.', 'name' => 'Ramesh I.', 'role' => 'Founder'],
-    ['quote' => 'Their technical SEO audit uncovered issues we had no idea existed — crawl errors, duplicate content, slow pages. Fixing them alone moved the needle significantly.', 'name' => 'Sophie A.', 'role' => 'Digital Director'],
-    ['quote' => 'What I appreciate most is the transparency. Every month I know exactly what was done, what moved, and what the plan is for next month. No smoke and mirrors.', 'name' => 'Aditya K.', 'role' => 'CEO'],
-    ['quote' => 'Our local SEO was non-existent before Rare Input. Now we rank in the top 3 map results for all our key service areas. Enquiries from Google have tripled.', 'name' => 'Patricia O.', 'role' => 'Business Owner'],
-]" />
+<section class="px-6 py-12 border-t border-b" style="background: linear-gradient(135deg, var(--color-brand-900) 0%, #2a2017 100%); border-color: var(--color-brand-900);">
+    <div class="mx-auto flex flex-col sm:flex-row items-center justify-between gap-6" style="max-width: var(--max-width);">
+        <div>
+            <p class="font-bold text-white mb-1" style="font-size: 1.05rem;">Want to know what's holding your site back?</p>
+            <p class="text-sm" style="color: var(--color-brand-400);">Get a free SEO audit — no strings attached.</p>
+        </div>
+        <a href="{{ route('contact') }}" class="btn-accent shrink-0">
+            Get Free Audit
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+</section>
 
 <section class="px-6 py-24" style="background-color: var(--color-surface);">
     <div class="mx-auto" style="max-width: 760px;">
@@ -167,6 +189,23 @@
                 </summary>
                 <div class="px-6 pb-5 text-sm leading-relaxed" style="color: var(--color-text-muted);">{{ $a }}</div>
             </details>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<section class="px-6 py-16 border-t border-b" style="background-color: var(--color-surface); border-color: var(--color-border);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+        <p class="text-xs font-bold uppercase tracking-widest mb-6" style="color: var(--color-text-muted);">Pair this with</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            @foreach([
+                ['Web Development', 'A technically sound website is the foundation of good SEO — we build both.', 'services.web-development'],
+                ['Performance Marketing', 'Run paid ads while organic rankings build so you\'re never waiting on traffic.', 'services.performance-marketing'],
+            ] as [$title, $desc, $route])
+            <a href="{{ route($route) }}" class="block p-7 rounded-xl border transition-colors duration-200 group hover:border-[var(--color-accent-dark)]" style="border-color: var(--color-border); background-color: var(--color-bg);">
+                <div class="font-bold mb-2 group-hover:underline" style="font-size: 0.95rem; color: var(--color-heading);">{{ $title }}</div>
+                <div class="text-sm leading-relaxed" style="color: var(--color-text-muted);">{{ $desc }}</div>
+            </a>
             @endforeach
         </div>
     </div>

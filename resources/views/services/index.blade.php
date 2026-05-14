@@ -125,7 +125,7 @@
         <h2 class="font-extrabold mb-5 text-white" style="font-size: 2.25rem; letter-spacing: -0.03em; line-height: 1.2;">Let's figure it out together</h2>
         <p class="leading-relaxed mb-10" style="font-size: 1rem; color: var(--color-brand-400);">Tell us about your business and we'll recommend the right services for your goals.</p>
         <a href="{{ route('contact') }}" class="btn-accent">
-            Get in Touch
+            Book a Discovery Call
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
     </div>
