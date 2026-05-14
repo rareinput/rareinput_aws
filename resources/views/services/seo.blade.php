@@ -7,13 +7,35 @@
 <script type="application/ld+json">{!! json_encode([
     "\x40context"    => 'https://schema.org',
     "\x40type"       => 'Service',
+    "\x40id"         => route('services.seo') . '#service',
     'name'        => 'Search Engine Optimisation (SEO)',
     'url'         => route('services.seo'),
     'description' => 'Data-driven SEO services — technical SEO, content strategy, link building, and local SEO that grow organic traffic and rankings.',
     'provider'    => ["\x40type" => 'Organization', 'name' => 'Rare Input', 'url' => route('home')],
     'serviceType' => 'SEO',
     'areaServed'  => 'Worldwide',
+    'image'       => config('app.url') . '/og-default.jpg',
 ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context" => 'https://schema.org',
+    "\x40type"    => 'FAQPage',
+    'mainEntity'  => [
+        ["\x40type" => 'Question', 'name' => 'How long does SEO take to show results?',                'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'SEO is a long-term investment. Most clients start seeing meaningful movement in rankings and traffic within 3–6 months. Competitive niches may take longer, but the results compound over time.']],
+        ["\x40type" => 'Question', 'name' => 'Do you guarantee first-page rankings?',                  'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'No reputable SEO agency can guarantee specific rankings — search engines make that call. We guarantee a data-driven process, full transparency, and consistent effort to improve your organic visibility.']],
+        ["\x40type" => 'Question', 'name' => 'Do you work on local SEO?',                              'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. We handle local SEO including Google Business Profile optimisation, local citation building, and geo-targeted content strategies for businesses serving specific areas.']],
+        ["\x40type" => 'Question', 'name' => 'Will you create content as part of the service?',        'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Content strategy and planning are included. Content creation (blog posts, landing pages) can be added as part of a broader package — we will discuss what makes sense for your goals.']],
+        ["\x40type" => 'Question', 'name' => 'Can you work alongside our existing marketing team?',    'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Absolutely. We are happy to collaborate with in-house teams, share reporting, and align on priorities so SEO supports your broader marketing strategy.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home',     'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('services.index')],
+        ["\x40type" => 'ListItem', 'position' => 3, 'name' => 'SEO', 'item' => route('services.seo')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
 </x-slot>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
@@ -21,7 +43,7 @@
         <div class="flex items-center gap-2 mb-8 text-sm" style="color: var(--color-text-muted);">
             <a href="{{ route('home') }}" class="hover:underline">Home</a>
             <span>/</span>
-            <a href="{{ route('home') }}#services" class="hover:underline">Services</a>
+            <a href="{{ route('services.index') }}" class="hover:underline">Services</a>
             <span>/</span>
             <span style="color: var(--color-heading);">SEO</span>
         </div>

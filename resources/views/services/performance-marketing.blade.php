@@ -7,13 +7,35 @@
 <script type="application/ld+json">{!! json_encode([
     "\x40context"    => 'https://schema.org',
     "\x40type"       => 'Service',
+    "\x40id"         => route('services.performance-marketing') . '#service',
     'name'        => 'Performance Marketing',
     'url'         => route('services.performance-marketing'),
     'description' => 'ROI-focused paid advertising across Google, Meta, and more. Campaigns that drive qualified traffic, leads, and revenue.',
     'provider'    => ["\x40type" => 'Organization', 'name' => 'Rare Input', 'url' => route('home')],
     'serviceType' => 'Performance Marketing',
     'areaServed'  => 'Worldwide',
+    'image'       => config('app.url') . '/og-default.jpg',
 ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context" => 'https://schema.org',
+    "\x40type"    => 'FAQPage',
+    'mainEntity'  => [
+        ["\x40type" => 'Question', 'name' => 'What is the minimum ad budget you work with?',   'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We typically recommend a minimum monthly ad spend of $500–$1,000 to generate enough data for meaningful optimisation. Below this threshold it is difficult to test, learn, and improve efficiently.']],
+        ["\x40type" => 'Question', 'name' => 'Do you run both Google and Meta ads?',           'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. We manage campaigns across Google Ads (Search, Display, Shopping, YouTube) and Meta Ads (Facebook and Instagram). We will recommend the right mix based on your audience and goals.']],
+        ["\x40type" => 'Question', 'name' => 'How do you measure success?',                    'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We track metrics that matter to your business — ROAS, cost per lead, cost per acquisition, and revenue. We set up full conversion tracking before launching any campaign.']],
+        ["\x40type" => 'Question', 'name' => 'Do I need a landing page before we start?',     'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'A strong landing page significantly improves results. If you do not have one, we can build or optimise one as part of the engagement.']],
+        ["\x40type" => 'Question', 'name' => 'How quickly will I see results from paid ads?',  'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Unlike SEO, paid ads can drive traffic immediately. However, optimisation takes 2–4 weeks of data before campaigns reach their peak performance.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home',     'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('services.index')],
+        ["\x40type" => 'ListItem', 'position' => 3, 'name' => 'Performance Marketing', 'item' => route('services.performance-marketing')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
 </x-slot>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
@@ -21,7 +43,7 @@
         <div class="flex items-center gap-2 mb-8 text-sm" style="color: var(--color-text-muted);">
             <a href="{{ route('home') }}" class="hover:underline">Home</a>
             <span>/</span>
-            <a href="{{ route('home') }}#services" class="hover:underline">Services</a>
+            <a href="{{ route('services.index') }}" class="hover:underline">Services</a>
             <span>/</span>
             <span style="color: var(--color-heading);">Performance Marketing</span>
         </div>

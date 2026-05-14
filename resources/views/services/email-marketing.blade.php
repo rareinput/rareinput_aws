@@ -7,13 +7,35 @@
 <script type="application/ld+json">{!! json_encode([
     "\x40context"    => 'https://schema.org',
     "\x40type"       => 'Service',
+    "\x40id"         => route('services.email-marketing') . '#service',
     'name'        => 'Email Marketing',
     'url'         => route('services.email-marketing'),
     'description' => 'Strategic email marketing — campaigns, automated drip sequences, and list growth systems that keep your audience engaged and buying.',
     'provider'    => ["\x40type" => 'Organization', 'name' => 'Rare Input', 'url' => route('home')],
     'serviceType' => 'Email Marketing',
     'areaServed'  => 'Worldwide',
+    'image'       => config('app.url') . '/og-default.jpg',
 ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context" => 'https://schema.org',
+    "\x40type"    => 'FAQPage',
+    'mainEntity'  => [
+        ["\x40type" => 'Question', 'name' => 'Which email platforms do you work with?',        'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We work with Klaviyo, Mailchimp, ActiveCampaign, Brevo, and most other major ESPs. We will recommend the best platform for your use case if you are starting fresh.']],
+        ["\x40type" => 'Question', 'name' => 'Do you write the email copy as well?',           'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. Copywriting is included in our email marketing service. We will learn your brand voice and write emails that feel authentic and drive action.']],
+        ["\x40type" => 'Question', 'name' => 'How many emails will you send per month?',       'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'This depends on your strategy. Automation flows run based on user behaviour, so frequency varies. For broadcast campaigns, we typically recommend 2–4 per month to maintain engagement without fatiguing your list.']],
+        ["\x40type" => 'Question', 'name' => 'Can you help grow our email list?',              'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. List growth strategy — including opt-in form design, lead magnets, and pop-up timing — is part of our service. A healthy, growing list is essential for long-term email performance.']],
+        ["\x40type" => 'Question', 'name' => 'What if we already have existing flows set up?', 'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We will audit your existing automations and campaigns first, identify what is working and what is not, and then optimise or rebuild accordingly.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home',     'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('services.index')],
+        ["\x40type" => 'ListItem', 'position' => 3, 'name' => 'Email Marketing', 'item' => route('services.email-marketing')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
 </x-slot>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
@@ -21,7 +43,7 @@
         <div class="flex items-center gap-2 mb-8 text-sm" style="color: var(--color-text-muted);">
             <a href="{{ route('home') }}" class="hover:underline">Home</a>
             <span>/</span>
-            <a href="{{ route('home') }}#services" class="hover:underline">Services</a>
+            <a href="{{ route('services.index') }}" class="hover:underline">Services</a>
             <span>/</span>
             <span style="color: var(--color-heading);">Email Marketing</span>
         </div>

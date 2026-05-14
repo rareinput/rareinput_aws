@@ -7,13 +7,35 @@
 <script type="application/ld+json">{!! json_encode([
     "\x40context"    => 'https://schema.org',
     "\x40type"       => 'Service',
+    "\x40id"         => route('services.wordpress') . '#service',
     'name'        => 'WordPress Development',
     'url'         => route('services.wordpress'),
     'description' => 'Custom WordPress websites, theme development, plugin integrations, and WooCommerce stores. Fast, secure, and built to rank.',
     'provider'    => ["\x40type" => 'Organization', 'name' => 'Rare Input', 'url' => route('home')],
     'serviceType' => 'WordPress Development',
     'areaServed'  => 'Worldwide',
+    'image'       => config('app.url') . '/og-default.jpg',
 ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context" => 'https://schema.org',
+    "\x40type"    => 'FAQPage',
+    'mainEntity'  => [
+        ["\x40type" => 'Question', 'name' => 'Do you use page builders like Elementor?',      'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We can — but we prefer to build custom themes with clean code where possible. If you specifically need Elementor or another page builder, we can accommodate that.']],
+        ["\x40type" => 'Question', 'name' => 'Can you migrate my existing website to WordPress?', 'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. We handle content migrations from other CMS platforms, static HTML sites, and other WordPress installs. We will make sure nothing is lost in the process.']],
+        ["\x40type" => 'Question', 'name' => 'Will my WordPress site be secure?',             'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Security is a priority in every build. We harden WordPress configurations, limit plugin exposure, set up SSL, and recommend managed hosting with automated backups.']],
+        ["\x40type" => 'Question', 'name' => 'How long does a WordPress project take?',       'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Most WordPress sites take 3–6 weeks depending on complexity. Larger projects with custom plugins or WooCommerce integrations may take longer.']],
+        ["\x40type" => 'Question', 'name' => 'Can I update the content myself after launch?', 'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Absolutely. WordPress is built for this. We will make sure the content management experience is intuitive and hand over a brief walkthrough so you can manage pages, posts, and media with confidence.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home',     'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('services.index')],
+        ["\x40type" => 'ListItem', 'position' => 3, 'name' => 'WordPress Development', 'item' => route('services.wordpress')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
 </x-slot>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
@@ -21,7 +43,7 @@
         <div class="flex items-center gap-2 mb-8 text-sm" style="color: var(--color-text-muted);">
             <a href="{{ route('home') }}" class="hover:underline">Home</a>
             <span>/</span>
-            <a href="{{ route('home') }}#services" class="hover:underline">Services</a>
+            <a href="{{ route('services.index') }}" class="hover:underline">Services</a>
             <span>/</span>
             <span style="color: var(--color-heading);">WordPress</span>
         </div>

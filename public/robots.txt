@@ -4,5 +4,8 @@ Allow: /
 Disallow: /admin
 Disallow: /login
 Disallow: /register
+Disallow: /subscribe
+Disallow: /unsubscribe/
+Disallow: /careers/apply/
 
 Sitemap: https://rareinput.com/sitemap.xml

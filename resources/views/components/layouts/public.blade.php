@@ -5,6 +5,7 @@
     'ogTitle'       => null,
     'ogDescription' => null,
     'ogImage'       => null,
+    'ogType'        => 'website',
     'noindex'       => false,
 ])
 @php
@@ -19,21 +20,30 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1e1a17">
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $description }}">
-    <meta name="robots" content="{{ $noindex ? 'noindex, nofollow' : 'index, follow' }}">
+    <meta name="robots" content="{{ $noindex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' }}">
     <link rel="canonical" href="{{ $canonicalUrl }}">
+    <link rel="alternate" hreflang="en" href="{{ $canonicalUrl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ $canonicalUrl }}">
 
     {{-- Open Graph --}}
-    <meta property="og:type"        content="website">
+    <meta property="og:type"        content="{{ $ogType }}">
+    <meta property="og:locale"      content="en_US">
     <meta property="og:url"         content="{{ $canonicalUrl }}">
     <meta property="og:title"       content="{{ $ogTitleFinal }}">
     <meta property="og:description" content="{{ $ogDescFinal }}">
-    <meta property="og:image"       content="{{ $ogImageFinal }}">
-    <meta property="og:site_name"   content="Rare Input">
+    <meta property="og:image"         content="{{ $ogImageFinal }}">
+    <meta property="og:image:width"   content="1200">
+    <meta property="og:image:height"  content="630">
+    <meta property="og:image:type"    content="image/jpeg">
+    <meta property="og:image:alt"     content="{{ $ogTitleFinal }}">
+    <meta property="og:site_name"     content="Rare Input">
 
     {{-- Twitter Card --}}
     <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:site"        content="@rareinput">
     <meta name="twitter:title"       content="{{ $ogTitleFinal }}">
     <meta name="twitter:description" content="{{ $ogDescFinal }}">
     <meta name="twitter:image"       content="{{ $ogImageFinal }}">
@@ -43,6 +53,7 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"></noscript>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/favicon.svg">
     {!! $head ?? '' !!}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

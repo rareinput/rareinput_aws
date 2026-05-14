@@ -3,6 +3,7 @@
     @foreach($staticPages as $page)
     <url>
         <loc>{{ $page['url'] }}</loc>
+        <lastmod>{{ $page['lastmod'] }}</lastmod>
         <changefreq>{{ $page['changefreq'] }}</changefreq>
         <priority>{{ $page['priority'] }}</priority>
     </url>
@@ -11,6 +12,7 @@
     @foreach($categories as $category)
     <url>
         <loc>{{ route('blog.category', $category->slug) }}</loc>
+        <lastmod>{{ $category->updated_at->toAtomString() }}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>

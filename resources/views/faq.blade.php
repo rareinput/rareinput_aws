@@ -1,8 +1,48 @@
+@php
+$faqSchema = [
+    '@context'   => 'https://schema.org',
+    '@type'      => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How do I get started with Rare Input?',                        'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'The best first step is to reach out via our contact page. Tell us about your project, goals, and timeline. We will get back to you within one business day to set up an initial call — no commitment required.']],
+        ['@type' => 'Question', 'name' => 'Do you work with clients outside India?',                       'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We work with clients globally. Most of our collaboration happens remotely over video calls and async communication tools, so location is rarely a barrier.']],
+        ['@type' => 'Question', 'name' => 'Do you take on small projects or only large engagements?',     'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We work on projects of all sizes. Whether you need a single landing page or a full product build, we will be upfront about whether it is a good fit and what to expect.']],
+        ['@type' => 'Question', 'name' => 'Will I have a dedicated point of contact?',                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Every client has a dedicated project lead who handles communication, keeps things on track, and is your single point of contact throughout the engagement.']],
+        ['@type' => 'Question', 'name' => 'Do you sign NDAs?',                                            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We are happy to sign a mutual NDA before any detailed discussions if your project requires confidentiality.']],
+        ['@type' => 'Question', 'name' => 'What information do you need to get started?',                 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'For development projects, a brief describing your goals, features, and any existing assets. For marketing, your current situation, targets, and ad spend budget. The more context you share upfront, the better our scoping will be.']],
+        ['@type' => 'Question', 'name' => 'How long does a typical website project take?',                'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A landing page or simple marketing site typically takes 2–4 weeks. A full multi-page website takes 4–8 weeks. Larger projects with custom functionality take longer, and we will give you a clear estimate before we start.']],
+        ['@type' => 'Question', 'name' => 'How long does a Shopify or WordPress build take?',             'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Custom Shopify and WordPress builds typically take 4–8 weeks depending on scope. If you need a faster turnaround, let us know — we can discuss options.']],
+        ['@type' => 'Question', 'name' => 'How long does an app development project take?',               'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'App projects vary significantly by scope. A simple MVP can take 6–10 weeks. A full-featured product with mobile apps and a backend can take 3–6 months. We scope this carefully before committing to a timeline.']],
+        ['@type' => 'Question', 'name' => 'How soon can I expect results from SEO?',                     'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'SEO is a long-term investment. Most clients start seeing meaningful movement in rankings and traffic within 3–6 months. Highly competitive industries may take longer. We set realistic expectations from the start.']],
+        ['@type' => 'Question', 'name' => 'How quickly can paid ads start driving traffic?',              'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Paid ads can drive traffic immediately after launch. However, meaningful optimisation — improving ROAS and reducing wasted spend — typically takes 4–8 weeks of data gathering.']],
+        ['@type' => 'Question', 'name' => 'What happens if a project runs over the estimated timeline?',  'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We communicate any delays early and transparently. If delays are on our side, we absorb the cost. If they are due to scope changes or delayed client feedback, we will discuss the impact together before proceeding.']],
+        ['@type' => 'Question', 'name' => 'Do you publish pricing on your website?',                      'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We do not publish fixed prices because every project is different. After an initial call we will send a detailed proposal with a clear scope and cost breakdown — no vague estimates.']],
+        ['@type' => 'Question', 'name' => 'How do payments work?',                                        'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Development projects are typically split into milestones — a deposit upfront, payments at key stages, and a final payment on completion. Marketing retainers are billed monthly. We will confirm the structure in our proposal.']],
+        ['@type' => 'Question', 'name' => 'Do you require a deposit?',                                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We require a deposit before starting any project. This is typically 30–50% of the total project value, depending on scope.']],
+        ['@type' => 'Question', 'name' => 'What currencies do you accept?',                               'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We accept USD, GBP, and EUR. If you are paying in a different currency, let us know and we will find a workable arrangement.']],
+        ['@type' => 'Question', 'name' => 'Can you handle both development and marketing for my business?','acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Many of our clients use us for both. Having one team manage your website and your marketing means better alignment between what you build and how you promote it.']],
+        ['@type' => 'Question', 'name' => 'Do you offer ongoing support after a project is delivered?',   'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We offer ongoing maintenance and support retainers for development projects and ongoing management for marketing services. We are not a build-and-disappear agency.']],
+        ['@type' => 'Question', 'name' => 'Can you work with our existing in-house team?',                'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. We collaborate with in-house designers, developers, and marketing teams regularly. We adapt to your workflows and tools.']],
+        ['@type' => 'Question', 'name' => 'Do you offer services a la carte or only as bundles?',         'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Both. You can engage us for a single service or a combination. We will recommend what makes sense for your situation, not just sell you more than you need.']],
+        ['@type' => 'Question', 'name' => 'What if I am unhappy with the work?',                          'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We include review rounds in every project and stay in close communication throughout to avoid surprises. If something is not right, we fix it. We stand behind our work.']],
+    ],
+];
+@endphp
 <x-layouts.public
     title="FAQ"
     description="Answers to common questions about working with Rare Input — our process, pricing, timelines, and what to expect when you start a project with us."
     :canonical="route('faq')"
 >
+<x-slot:head>
+<script type="application/ld+json">{!! json_encode($faqSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'FAQ',  'item' => route('faq')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
+</x-slot:head>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
     <div class="mx-auto" style="max-width: var(--max-width);">

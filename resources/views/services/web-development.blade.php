@@ -7,13 +7,35 @@
 <script type="application/ld+json">{!! json_encode([
     "\x40context"    => 'https://schema.org',
     "\x40type"       => 'Service',
+    "\x40id"         => route('services.web-development') . '#service',
     'name'        => 'Web Development',
     'url'         => route('services.web-development'),
     'description' => 'Custom website design and development — fast, responsive, SEO-ready, and tailored to your brand and business goals.',
     'provider'    => ["\x40type" => 'Organization', 'name' => 'Rare Input', 'url' => route('home')],
     'serviceType' => 'Web Development',
     'areaServed'  => 'Worldwide',
+    'image'       => config('app.url') . '/og-default.jpg',
 ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context" => 'https://schema.org',
+    "\x40type"    => 'FAQPage',
+    'mainEntity'  => [
+        ["\x40type" => 'Question', 'name' => 'Do you use website builders or templates?',  'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'No. Every site we build is designed and coded from scratch. This gives us full control over performance, SEO, and the final output — no bloated builders or locked templates.']],
+        ["\x40type" => 'Question', 'name' => 'What technologies do you use?',              'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We primarily build with HTML, CSS, JavaScript, Laravel, and Next.js. The right stack depends on your project — we will recommend what makes the most sense for your needs.']],
+        ["\x40type" => 'Question', 'name' => 'Do you handle hosting and deployment?',      'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We can advise on hosting and set up your deployment pipeline, but we do not lock you into any specific provider. We work with your existing setup or help you choose a suitable host.']],
+        ["\x40type" => 'Question', 'name' => 'How long does a website project take?',      'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'A marketing site or landing page typically takes 2–4 weeks. Larger multi-page projects with custom functionality may take 6–10 weeks. We will give you a clear timeline upfront.']],
+        ["\x40type" => 'Question', 'name' => 'Will the site be optimised for search engines?', 'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. Every site we build has proper semantic HTML, meta structure, fast load times, and Core Web Vitals in mind from day one.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home',     'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('services.index')],
+        ["\x40type" => 'ListItem', 'position' => 3, 'name' => 'Web Development', 'item' => route('services.web-development')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
 </x-slot>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
@@ -21,7 +43,7 @@
         <div class="flex items-center gap-2 mb-8 text-sm" style="color: var(--color-text-muted);">
             <a href="{{ route('home') }}" class="hover:underline">Home</a>
             <span>/</span>
-            <a href="{{ route('home') }}#services" class="hover:underline">Services</a>
+            <a href="{{ route('services.index') }}" class="hover:underline">Services</a>
             <span>/</span>
             <span style="color: var(--color-heading);">Website Development</span>
         </div>

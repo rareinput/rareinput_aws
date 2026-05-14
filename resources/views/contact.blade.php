@@ -1,8 +1,18 @@
 <x-layouts.public
-    title="Contact"
+    title="Contact Rare Input — Free Consultation"
     description="Get in touch with Rare Input. Tell us about your project and we'll get back to you within 24 hours. No commitment, just a conversation."
     :canonical="route('contact')"
 >
+<x-slot:head>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home',    'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Contact', 'item' => route('contact')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
+</x-slot:head>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
     <div class="mx-auto" style="max-width: var(--max-width);">

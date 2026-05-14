@@ -7,13 +7,35 @@
 <script type="application/ld+json">{!! json_encode([
     "\x40context"    => 'https://schema.org',
     "\x40type"       => 'Service',
+    "\x40id"         => route('services.shopify') . '#service',
     'name'        => 'Shopify Development',
     'url'         => route('services.shopify'),
     'description' => 'Custom Shopify store development, theme design, app integrations, and Shopify Plus migrations.',
     'provider'    => ["\x40type" => 'Organization', 'name' => 'Rare Input', 'url' => route('home')],
     'serviceType' => 'Shopify Development',
     'areaServed'  => 'Worldwide',
+    'image'       => config('app.url') . '/og-default.jpg',
 ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context" => 'https://schema.org',
+    "\x40type"    => 'FAQPage',
+    'mainEntity'  => [
+        ["\x40type" => 'Question', 'name' => 'Do you build on Shopify Plus?',                          'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes — we work across all Shopify plans including Shopify Plus. We are familiar with the additional features and customisation options Plus unlocks, such as Checkout Extensibility and B2B tools.']],
+        ["\x40type" => 'Question', 'name' => 'Can you redesign my existing Shopify store?',            'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Absolutely. Whether you want a full redesign or targeted improvements to specific pages, we can work with your existing store or rebuild it from scratch.']],
+        ["\x40type" => 'Question', 'name' => 'How long does a Shopify project take?',                  'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'A typical custom Shopify store takes 4–8 weeks from kickoff to launch, depending on the scope. We will give you a clear timeline before we start.']],
+        ["\x40type" => 'Question', 'name' => 'Will I be able to manage the store myself after launch?', 'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. Shopify is designed to be managed without technical knowledge. We will walk you through everything and make sure you are confident managing products, orders, and content.']],
+        ["\x40type" => 'Question', 'name' => 'Do you offer ongoing support after launch?',             'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. We offer ongoing maintenance and support packages for clients who need help with updates, new features, or troubleshooting after launch.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home',     'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('services.index')],
+        ["\x40type" => 'ListItem', 'position' => 3, 'name' => 'Shopify Development', 'item' => route('services.shopify')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
 </x-slot>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
@@ -21,7 +43,7 @@
         <div class="flex items-center gap-2 mb-8 text-sm" style="color: var(--color-text-muted);">
             <a href="{{ route('home') }}" class="hover:underline">Home</a>
             <span>/</span>
-            <a href="{{ route('home') }}#services" class="hover:underline">Services</a>
+            <a href="{{ route('services.index') }}" class="hover:underline">Services</a>
             <span>/</span>
             <span style="color: var(--color-heading);">Shopify</span>
         </div>

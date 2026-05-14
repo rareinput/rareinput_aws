@@ -1,8 +1,40 @@
-<x-layouts.public :title="$category->name . ' — Blog'">
+@php
+    $catCurrentPage   = request()->integer('page', 1);
+    $catIsFirstPage   = $catCurrentPage <= 1;
+    $categoryCanonical = $catIsFirstPage
+        ? route('blog.category', $category->slug)
+        : request()->url();
+    $categoryBreadcrumb = [
+        '@context'        => 'https://schema.org',
+        '@type'           => 'BreadcrumbList',
+        'itemListElement' => [
+            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+            ['@type' => 'ListItem', 'position' => 2, 'name' => 'Blog', 'item' => route('blog.index')],
+            ['@type' => 'ListItem', 'position' => 3, 'name' => $category->name, 'item' => route('blog.category', $category->slug)],
+        ],
+    ];
+    $categoryItemList = [
+        '@context'        => 'https://schema.org',
+        '@type'           => 'ItemList',
+        'name'            => $category->name . ' — Rare Input Blog',
+        'url'             => route('blog.category', $category->slug),
+        'itemListElement' => $posts->map(fn ($p, $i) => [
+            '@type'    => 'ListItem',
+            'position' => (($catCurrentPage - 1) * 9) + $i + 1,
+            'url'      => route('blog.show', $p->slug),
+            'name'     => $p->title,
+        ])->values()->all(),
+    ];
+@endphp
+<x-layouts.public
+    :title="$category->name . ' — Blog'"
+    :description="'Browse all ' . $category->name . ' posts from Rare Input — digital growth insights, tips, and strategies.'"
+    :canonical="$categoryCanonical"
+    :noindex="!$catIsFirstPage"
+>
     <x-slot:head>
-        <meta name="description" content="Browse all posts in {{ $category->name }} from Rare Input — digital growth insights, tips, and strategies.">
-        <link rel="canonical" href="{{ route('blog.category', $category->slug) }}">
-        <meta name="robots" content="index, follow">
+        <script type="application/ld+json">{!! json_encode($categoryBreadcrumb, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+        <script type="application/ld+json">{!! json_encode($categoryItemList, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     </x-slot:head>
 
 <section style="background: var(--color-surface); padding: 4rem 1.5rem 3rem; border-bottom: 1px solid var(--color-border);">
@@ -34,7 +66,8 @@
                 <article class="card" style="overflow: hidden; display: flex; flex-direction: column;">
                     @if ($post->featured_image)
                         <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->featured_image_alt ?: $post->title }}"
-                             style="width: 100%; height: 200px; object-fit: cover;">
+                             style="width: 100%; height: 200px; object-fit: cover;"
+                             loading="lazy" decoding="async">
                     @else
                         <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--color-surface-2), var(--color-accent-light)); display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">✍️</div>
                     @endif

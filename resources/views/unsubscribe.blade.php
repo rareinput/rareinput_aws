@@ -1,4 +1,4 @@
-<x-layouts.public title="Unsubscribed">
+<x-layouts.public title="Unsubscribed" :noindex="true">
 
 <section class="px-6 py-24" style="background-color: var(--color-bg);">
     <div class="mx-auto text-center" style="max-width: 560px;">

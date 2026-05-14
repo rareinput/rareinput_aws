@@ -7,13 +7,35 @@
 <script type="application/ld+json">{!! json_encode([
     "\x40context"    => 'https://schema.org',
     "\x40type"       => 'Service',
+    "\x40id"         => route('services.app-development') . '#service',
     'name'        => 'App Development',
     'url'         => route('services.app-development'),
     'description' => 'Custom mobile and web application development — from MVPs to enterprise-grade products. Scalable architecture and on-time delivery.',
     'provider'    => ["\x40type" => 'Organization', 'name' => 'Rare Input', 'url' => route('home')],
     'serviceType' => 'App Development',
     'areaServed'  => 'Worldwide',
+    'image'       => config('app.url') . '/og-default.jpg',
 ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context" => 'https://schema.org',
+    "\x40type"    => 'FAQPage',
+    'mainEntity'  => [
+        ["\x40type" => 'Question', 'name' => 'Do you build native or cross-platform mobile apps?', 'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We build both. For most projects we recommend cross-platform frameworks like React Native for efficiency, but we can build fully native iOS or Android apps when the project requires it.']],
+        ["\x40type" => 'Question', 'name' => 'Can you take over an existing app or codebase?',    'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. We are comfortable picking up existing projects. We will start with a code review to understand the current state and then agree on the best path forward.']],
+        ["\x40type" => 'Question', 'name' => 'How do you handle project scoping?',                 'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We invest time upfront to define requirements, user flows, and technical architecture. This reduces surprises mid-project and ensures we are building the right thing.']],
+        ["\x40type" => 'Question', 'name' => 'Who owns the code after the project?',               'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'You do. Upon full payment, all code and assets are yours. We will deliver a full handover including documentation and repository access.']],
+        ["\x40type" => 'Question', 'name' => 'Do you offer post-launch maintenance?',              'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. We offer ongoing maintenance and support retainers to handle bug fixes, dependency updates, and new features after launch.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home',     'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('services.index')],
+        ["\x40type" => 'ListItem', 'position' => 3, 'name' => 'App Development', 'item' => route('services.app-development')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
 </x-slot>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
@@ -21,7 +43,7 @@
         <div class="flex items-center gap-2 mb-8 text-sm" style="color: var(--color-text-muted);">
             <a href="{{ route('home') }}" class="hover:underline">Home</a>
             <span>/</span>
-            <a href="{{ route('home') }}#services" class="hover:underline">Services</a>
+            <a href="{{ route('services.index') }}" class="hover:underline">Services</a>
             <span>/</span>
             <span style="color: var(--color-heading);">App Development</span>
         </div>

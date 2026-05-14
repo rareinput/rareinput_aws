@@ -1,8 +1,39 @@
+@php
+    $currentPage   = request()->integer('page', 1);
+    $isFirstPage   = $currentPage <= 1;
+    $blogCanonical = $isFirstPage ? route('blog.index') : request()->url();
+    $blogItemList  = [
+        '@context'        => 'https://schema.org',
+        '@type'           => 'ItemList',
+        'name'            => 'Rare Input Blog',
+        'url'             => $blogCanonical,
+        'itemListElement' => $posts->map(fn ($p, $i) => [
+            '@type'    => 'ListItem',
+            'position' => (($currentPage - 1) * 9) + $i + 1,
+            'url'      => route('blog.show', $p->slug),
+            'name'     => $p->title,
+        ])->values()->all(),
+    ];
+@endphp
 <x-layouts.public
-    title="Blog"
+    title="Digital Marketing & Development Blog"
     description="Insights, guides, and expert perspectives on web development, Shopify, SEO, performance marketing, and email marketing from the Rare Input team."
-    :canonical="route('blog.index')"
+    :canonical="$blogCanonical"
+    :noindex="!$isFirstPage"
 >
+    <x-slot:head>
+        @if($posts->isNotEmpty())
+        <script type="application/ld+json">{!! json_encode($blogItemList, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+        @endif
+        <script type="application/ld+json">{!! json_encode([
+            "\x40context"        => 'https://schema.org',
+            "\x40type"           => 'BreadcrumbList',
+            'itemListElement'    => [
+                ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Blog', 'item' => route('blog.index')],
+            ],
+        ], JSON_UNESCAPED_SLASHES) !!}</script>
+    </x-slot:head>
 
 <section style="background: var(--color-surface); padding: 4rem 1.5rem 3rem; border-bottom: 1px solid var(--color-border);">
     <div class="mx-auto px-6" style="max-width: var(--max-width);">
@@ -25,7 +56,8 @@
                 <article class="card" style="overflow: hidden; display: flex; flex-direction: column;">
                     @if ($post->featured_image)
                         <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->featured_image_alt ?: $post->title }}"
-                             style="width: 100%; height: 200px; object-fit: cover;">
+                             style="width: 100%; height: 200px; object-fit: cover;"
+                             loading="lazy" decoding="async">
                     @else
                         <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--color-surface-2), var(--color-accent-light)); display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">✍️</div>
                     @endif

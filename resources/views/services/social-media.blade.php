@@ -7,13 +7,35 @@
 <script type="application/ld+json">{!! json_encode([
     "\x40context"    => 'https://schema.org',
     "\x40type"       => 'Service',
+    "\x40id"         => route('services.social-media') . '#service',
     'name'        => 'Social Media Marketing',
     'url'         => route('services.social-media'),
     'description' => 'Social media management, content creation, and paid social campaigns that build brand awareness and drive engagement across Instagram, LinkedIn, and more.',
     'provider'    => ["\x40type" => 'Organization', 'name' => 'Rare Input', 'url' => route('home')],
     'serviceType' => 'Social Media Marketing',
     'areaServed'  => 'Worldwide',
+    'image'       => config('app.url') . '/og-default.jpg',
 ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context" => 'https://schema.org',
+    "\x40type"    => 'FAQPage',
+    'mainEntity'  => [
+        ["\x40type" => 'Question', 'name' => 'Which social media platforms do you manage?',              'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We manage Instagram, Facebook, LinkedIn, and X (Twitter). We will recommend which platforms to focus on based on your audience and business goals.']],
+        ["\x40type" => 'Question', 'name' => 'How many posts will you create per month?',                'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'This depends on the plan agreed. Typically we produce 12–20 posts per month per platform, including graphics, captions, and hashtag strategy.']],
+        ["\x40type" => 'Question', 'name' => 'Do you respond to comments and messages?',                 'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. Community management — responding to comments, DMs, and mentions — is included in our social media management service.']],
+        ["\x40type" => 'Question', 'name' => 'Will I have approval over content before it goes live?',   'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes. We share a content calendar each month for your review and approval before anything is published. You stay in control.']],
+        ["\x40type" => 'Question', 'name' => 'Can you help with social media ads as well?',              'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Paid social (Facebook and Instagram ads) is covered under our Performance Marketing service. Many clients combine both for maximum reach and results.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home',     'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('services.index')],
+        ["\x40type" => 'ListItem', 'position' => 3, 'name' => 'Social Media Marketing', 'item' => route('services.social-media')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
 </x-slot>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
@@ -21,7 +43,7 @@
         <div class="flex items-center gap-2 mb-8 text-sm" style="color: var(--color-text-muted);">
             <a href="{{ route('home') }}" class="hover:underline">Home</a>
             <span>/</span>
-            <a href="{{ route('home') }}#services" class="hover:underline">Services</a>
+            <a href="{{ route('services.index') }}" class="hover:underline">Services</a>
             <span>/</span>
             <span style="color: var(--color-heading);">Social Media Marketing</span>
         </div>

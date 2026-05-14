@@ -18,14 +18,16 @@ class LandingPage extends Model
         'meta_title',
         'meta_description',
         'og_image',
+        'noindex',
     ];
 
     protected function casts(): array
     {
         return [
             'template' => LandingPageTemplate::class,
-            'status'   => LandingPageStatus::class,
-            'content'  => 'array',
+            'status' => LandingPageStatus::class,
+            'content' => 'array',
+            'noindex' => 'boolean',
         ];
     }
 
@@ -59,7 +61,7 @@ class LandingPage extends Model
     {
         return match ($template) {
             LandingPageTemplate::SingleService => self::singleServiceDefaults(),
-            LandingPageTemplate::MultiService  => self::multiServiceDefaults(),
+            LandingPageTemplate::MultiService => self::multiServiceDefaults(),
         };
     }
 
@@ -70,15 +72,15 @@ class LandingPage extends Model
                 'cta_text' => 'Book Free Call',
             ],
             'hero' => [
-                'badge'          => '',
+                'badge' => '',
                 'headline_line1' => '',
                 'headline_line2' => '',
                 'headline_line3' => '',
-                'subheadline'    => '',
-                'primary_cta'    => 'Get a Free Audit',
-                'secondary_cta'  => 'See Our Work',
-                'secondary_url'  => '',
-                'stats'          => [
+                'subheadline' => '',
+                'primary_cta' => 'Get a Free Audit',
+                'secondary_cta' => 'See Our Work',
+                'secondary_url' => '',
+                'stats' => [
                     ['value' => '', 'label' => ''],
                     ['value' => '', 'label' => ''],
                     ['value' => '', 'label' => ''],
@@ -86,55 +88,55 @@ class LandingPage extends Model
                 ],
             ],
             'problem' => [
-                'headline'    => '',
+                'headline' => '',
                 'subheadline' => '',
-                'problems'    => [],
+                'problems' => [],
             ],
             'services' => [
-                'headline'    => '',
+                'headline' => '',
                 'subheadline' => '',
-                'services'    => [],
+                'services' => [],
             ],
             'process' => [
-                'headline'    => '',
+                'headline' => '',
                 'subheadline' => '',
-                'steps'       => [],
+                'steps' => [],
             ],
             'testimonials' => [
-                'headline'     => '',
+                'headline' => '',
                 'testimonials' => [],
             ],
             'why_us' => [
-                'headline'    => '',
+                'headline' => '',
                 'subheadline' => '',
-                'reasons'     => [],
-                'stats'       => [],
+                'reasons' => [],
+                'stats' => [],
             ],
             'form' => [
-                'headline'        => 'Get a Free Audit — No Strings Attached',
-                'subheadline'     => '',
+                'headline' => 'Get a Free Audit — No Strings Attached',
+                'subheadline' => '',
                 'checklist_items' => [],
-                'trust_tags'      => [],
-                'form_subject'    => '',
-                'dropdown_label'  => 'What\'s Your Main Challenge?',
+                'trust_tags' => [],
+                'form_subject' => '',
+                'dropdown_label' => 'What\'s Your Main Challenge?',
                 'dropdown_options' => [],
             ],
             'faq' => [
                 'faqs' => [],
             ],
             'final_cta' => [
-                'headline'    => '',
+                'headline' => '',
                 'subheadline' => '',
                 'button_text' => 'Get My Free Audit',
             ],
             'colors' => [
-                'background'      => '#0f172a',
-                'accent'          => '#7c3aed',
-                'accent_text'     => '#ffffff',
-                'heading_text'    => '#ffffff',
-                'body_text'       => 'rgba(255,255,255,0.55)',
+                'background' => '#0f172a',
+                'accent' => '#7c3aed',
+                'accent_text' => '#ffffff',
+                'heading_text' => '#ffffff',
+                'body_text' => 'rgba(255,255,255,0.55)',
                 'card_background' => 'rgba(255,255,255,0.03)',
-                'card_border'     => 'rgba(255,255,255,0.08)',
+                'card_border' => 'rgba(255,255,255,0.08)',
             ],
         ];
     }
@@ -149,50 +151,50 @@ class LandingPage extends Model
                 'text' => '',
             ],
             'hero' => [
-                'badge'              => '',
-                'headline'           => '',
-                'subheadline'        => '',
-                'cta_text'           => 'Claim My Discount',
+                'badge' => '',
+                'headline' => '',
+                'subheadline' => '',
+                'cta_text' => 'Claim My Discount',
                 'countdown_end_date' => '',
             ],
             'trust_badges' => [
                 'badges' => [],
             ],
             'services' => [
-                'headline'    => '',
+                'headline' => '',
                 'subheadline' => '',
                 'discount_badge' => '',
-                'services'    => [],
+                'services' => [],
             ],
             'testimonials' => [
-                'headline'     => '',
+                'headline' => '',
                 'testimonials' => [],
             ],
             'process' => [
                 'headline' => '',
-                'steps'    => [],
+                'steps' => [],
             ],
             'form' => [
-                'headline'     => '',
-                'subheadline'  => '',
+                'headline' => '',
+                'subheadline' => '',
                 'form_subject' => '',
             ],
             'faq' => [
                 'faqs' => [],
             ],
             'final_cta' => [
-                'headline'    => '',
+                'headline' => '',
                 'subheadline' => '',
                 'button_text' => 'Claim My Discount Now',
             ],
             'colors' => [
-                'background'      => '#1a1512',
-                'accent'          => '#e8a838',
-                'accent_text'     => '#1a1512',
-                'heading_text'    => '#ffffff',
-                'body_text'       => 'rgba(255,255,255,0.65)',
+                'background' => '#1a1512',
+                'accent' => '#e8a838',
+                'accent_text' => '#1a1512',
+                'heading_text' => '#ffffff',
+                'body_text' => 'rgba(255,255,255,0.65)',
                 'card_background' => 'rgba(255,255,255,0.04)',
-                'card_border'     => 'rgba(232,168,56,0.2)',
+                'card_border' => 'rgba(232,168,56,0.2)',
             ],
         ];
     }

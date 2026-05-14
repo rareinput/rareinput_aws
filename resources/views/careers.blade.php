@@ -3,6 +3,55 @@
     description="Join the Rare Input team. We're looking for talented developers, marketers, and strategists who want to do great work for ambitious brands."
     :canonical="route('careers')"
 >
+<x-slot:head>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"        => 'https://schema.org',
+    "\x40type"           => 'BreadcrumbList',
+    'itemListElement'    => [
+        ["\x40type" => 'ListItem', 'position' => 1, 'name' => 'Home',    'item' => url('/')],
+        ["\x40type" => 'ListItem', 'position' => 2, 'name' => 'Careers', 'item' => route('careers')],
+    ],
+], JSON_UNESCAPED_SLASHES) !!}</script>
+@if($jobs->isNotEmpty())
+@php
+$jobPostingSchema = $jobs->map(fn($job) => [
+    "\x40context"          => 'https://schema.org',
+    "\x40type"             => 'JobPosting',
+    'title'                => $job->title,
+    'description'          => $job->description,
+    'datePosted'           => $job->created_at->toDateString(),
+    'employmentType'       => match($job->type) {
+        \App\Enums\JobType::FullTime   => 'FULL_TIME',
+        \App\Enums\JobType::PartTime   => 'PART_TIME',
+        \App\Enums\JobType::Contract   => 'CONTRACTOR',
+        \App\Enums\JobType::Internship => 'INTERN',
+        default                        => 'OTHER',
+    },
+    'hiringOrganization'   => [
+        "\x40type" => 'Organization',
+        'name'     => 'Rare Input',
+        'sameAs'   => url('/'),
+        'logo'     => config('app.url') . '/favicon.svg',
+    ],
+    'jobLocation'          => [
+        "\x40type"   => 'Place',
+        'address'    => [
+            "\x40type"          => 'PostalAddress',
+            'addressLocality'   => $job->location,
+            'addressCountry'    => 'IN',
+        ],
+    ],
+    'applicantLocationRequirements' => ["\x40type" => 'Country', 'name' => 'Worldwide'],
+    'jobLocationType'      => str_contains(strtolower($job->location), 'remote') ? 'TELECOMMUTE' : null,
+    'directApply'          => true,
+    'url'                  => route('careers.apply', $job),
+])->filter()->values()->all();
+@endphp
+@foreach($jobPostingSchema as $schema)
+<script type="application/ld+json">{!! json_encode(array_filter($schema, fn($v) => $v !== null), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@endforeach
+@endif
+</x-slot:head>
 
 <section class="px-6 py-24 border-b" style="background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-accent-light) 100%); border-color: var(--color-border);">
     <div class="mx-auto" style="max-width: var(--max-width);">

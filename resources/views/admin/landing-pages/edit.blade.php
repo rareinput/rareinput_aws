@@ -111,6 +111,16 @@
                     <p class="text-xs mt-1" style="color: var(--color-text-muted);">Recommended: 1200×630px</p>
                 </div>
 
+                <div class="col-span-2">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="hidden" name="noindex" value="0">
+                        <input type="checkbox" name="noindex" value="1" {{ old('noindex', $landingPage->noindex) ? 'checked' : '' }}
+                               class="w-4 h-4 rounded" style="accent-color: var(--color-accent-dark);">
+                        <span class="text-sm font-medium" style="color: var(--color-heading);">No-index this page</span>
+                    </label>
+                    <p class="text-xs mt-1 ml-7" style="color: var(--color-text-muted);">Checked = hide from search engines (default for landing pages). Uncheck only for pages you want Google to index.</p>
+                </div>
+
             </div>
         </div>
 

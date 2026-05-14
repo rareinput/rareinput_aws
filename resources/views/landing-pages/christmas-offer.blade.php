@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Christmas Offer — 30% Off Digital Marketing & Web Services | Rare Input</title>
     <meta name="description" content="Limited Christmas offer from Rare Input. Get 30% off on Shopify, SEO, Performance Marketing, and Web Development. Only 10 spots available. Claim yours before December 31.">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="{{ route('landing.christmas-offer') }}">
 
     {{-- Open Graph --}}

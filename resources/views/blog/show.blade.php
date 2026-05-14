@@ -14,11 +14,21 @@
         'datePublished' => $post->published_at->toIso8601String(),
         'dateModified'  => $post->updated_at->toIso8601String(),
         'url'           => $canonicalUrl,
-        'author'        => ['@type' => 'Organization', 'name' => 'Rare Input', 'url' => url('/')],
-        'publisher'     => ['@type' => 'Organization', 'name' => 'Rare Input', 'url' => url('/')],
+        'author'        => ['@type' => 'Person', 'name' => 'Rare Input Team', 'url' => url('/about')],
+        'publisher'     => [
+            '@type'  => 'Organization',
+            'name'   => 'Rare Input',
+            'url'    => url('/'),
+            'logo'   => ['@type' => 'ImageObject', 'url' => config('app.url') . '/favicon.svg'],
+        ],
     ];
     if ($ogImage) {
-        $jsonLd['image'] = $ogImage;
+        $jsonLd['image'] = [
+            '@type'  => 'ImageObject',
+            'url'    => $ogImage,
+            'width'  => 1200,
+            'height' => 630,
+        ];
     }
     $jsonLdJson = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
@@ -34,38 +44,23 @@
     $breadcrumbJson = json_encode($breadcrumb, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 @endphp
 
-<x-layouts.public :title="$post->meta_title ?: $post->title">
+<x-layouts.public
+    :title="$post->meta_title ?: $post->title"
+    :description="$metaDescription ?? ''"
+    :canonical="$canonicalUrl"
+    :noindex="$post->noindex"
+    :ogImage="$ogImage"
+    ogType="article"
+>
     <x-slot:head>
-        {{-- Canonical --}}
-        <link rel="canonical" href="{{ $canonicalUrl }}">
-
-        {{-- Robots --}}
-        @if($post->noindex)
-        <meta name="robots" content="noindex, nofollow">
-        @else
-        <meta name="robots" content="index, follow">
-        @endif
-
-        {{-- Open Graph --}}
-        <meta property="og:type" content="article">
-        <meta property="og:title" content="{{ $metaTitle }}">
-        <meta property="og:description" content="{{ $metaDescription }}">
-        <meta property="og:url" content="{{ $canonicalUrl }}">
-        <meta property="og:site_name" content="Rare Input">
-        @if($ogImage)
-        <meta property="og:image" content="{{ $ogImage }}">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-        @endif
         <meta property="article:published_time" content="{{ $post->published_at->toIso8601String() }}">
         <meta property="article:modified_time" content="{{ $post->updated_at->toIso8601String() }}">
-
-        {{-- Twitter Card --}}
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="{{ $metaTitle }}">
-        <meta name="twitter:description" content="{{ $metaDescription }}">
-        @if($ogImage)
-        <meta name="twitter:image" content="{{ $ogImage }}">
+        <meta property="article:author" content="Rare Input">
+        @if($post->categories->isNotEmpty())
+            <meta property="article:section" content="{{ $post->categories->first()->name }}">
+            @foreach($post->categories as $category)
+                <meta property="article:tag" content="{{ $category->name }}">
+            @endforeach
         @endif
 
         {{-- JSON-LD Article Schema --}}
@@ -96,7 +91,8 @@
         <article class="col-span-8">
             @if ($post->featured_image)
                 <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->featured_image_alt ?: $post->title }}"
-                     class="w-full object-cover rounded-2xl mb-10 shadow-lg" style="max-height: 440px;">
+                     class="w-full object-cover rounded-2xl mb-10 shadow-lg" style="max-height: 440px;"
+                     fetchpriority="high" decoding="async">
             @endif
 
             <header class="mb-10">

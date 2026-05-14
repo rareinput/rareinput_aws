@@ -1,5 +1,5 @@
 <x-layouts.public
-    title="Digital Agency — Development & Marketing"
+    title="Shopify & Web Development Agency — Rare Input"
     description="Rare Input is a full-service digital agency helping ambitious brands grow through custom web development, Shopify, SEO, performance marketing, and email marketing."
     :canonical="route('home')"
 >
@@ -7,19 +7,53 @@
 <script type="application/ld+json">{!! json_encode([
     "\x40context"    => 'https://schema.org',
     "\x40type"       => 'Organization',
+    "\x40id"         => config('app.url') . '/#organization',
     'name'           => 'Rare Input',
     'url'            => route('home'),
     'logo'           => config('app.url') . '/favicon.svg',
     'description'    => 'Full-service digital agency — web development, Shopify, SEO, performance marketing and email marketing.',
+    'address'        => [
+        "\x40type"           => 'PostalAddress',
+        'addressCountry'     => 'IN',
+    ],
     'contactPoint'   => [
         "\x40type"       => 'ContactPoint',
         'contactType'    => 'customer support',
         'url'            => route('contact'),
+        'contactOption'  => 'TollFree',
+        'areaServed'     => 'Worldwide',
+        'availableLanguage' => 'English',
     ],
     'sameAs' => [
         'https://linkedin.com/company/rareinput/',
         'https://www.facebook.com/rareinput',
         'https://x.com/rareinput',
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context"   => 'https://schema.org',
+    "\x40type"      => 'WebSite',
+    "\x40id"        => config('app.url') . '/#website',
+    'name'          => 'Rare Input',
+    'url'           => route('home'),
+    'potentialAction' => [
+        "\x40type"        => 'SearchAction',
+        'target'          => [
+            "\x40type" => 'EntryPoint',
+            'urlTemplate' => route('blog.index') . '?search={search_term_string}',
+        ],
+        'query-input'     => 'required name=search_term_string',
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    "\x40context" => 'https://schema.org',
+    "\x40type"    => 'FAQPage',
+    'mainEntity'  => [
+        ["\x40type" => 'Question', 'name' => 'What services does Rare Input offer?',      'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'We offer end-to-end digital services — Shopify & e-commerce development, web & app development, SEO, performance marketing (Google & Meta Ads), email marketing, and social media management.']],
+        ["\x40type" => 'Question', 'name' => 'How long does a typical project take?',     'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'It depends on scope. A Shopify store typically takes 4–6 weeks, a custom web app 8–16 weeks. Marketing campaigns can launch within 1–2 weeks. We provide a clear timeline in our proposal.']],
+        ["\x40type" => 'Question', 'name' => 'Do you work with international clients?',   'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Yes — we are remote-first and work with clients across the US, UK, Europe, and beyond. We accept payments in USD, GBP, and EUR.']],
+        ["\x40type" => 'Question', 'name' => 'What is your pricing structure?',           'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'Development projects are fixed-price with milestone-based payments. Marketing services are monthly retainers. We share a detailed proposal after an initial discovery call — no surprises.']],
+        ["\x40type" => 'Question', 'name' => 'Do you require a long-term contract?',      'acceptedAnswer' => ["\x40type" => 'Answer', 'text' => 'No lock-in contracts. Marketing retainers run month-to-month. Development projects are scoped and agreed upfront. You are never tied in longer than you want to be.']],
     ],
 ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
 </x-slot>
@@ -395,20 +429,20 @@
 
             <div class="flex flex-wrap gap-3">
                 @foreach([
-                    ['D2C & E-commerce', '#'],
-                    ['SaaS & Tech', '#'],
-                    ['Fashion & Apparel', '#'],
-                    ['Health & Wellness', '#'],
-                    ['Food & Beverage', '#'],
-                    ['Education & EdTech', '#'],
-                    ['Professional Services', '#'],
-                    ['Real Estate', '#'],
-                    ['Beauty & Personal Care', '#'],
-                    ['Retail & Consumer Goods', '#'],
-                    ['Hospitality & Travel', '#'],
-                    ['Media & Publishing', '#'],
-                ] as [$industry, $link])
-                <span class="inline-flex items-center text-sm font-semibold px-4 py-2 rounded-full border transition-colors duration-200"
+                    'D2C & E-commerce',
+                    'SaaS & Tech',
+                    'Fashion & Apparel',
+                    'Health & Wellness',
+                    'Food & Beverage',
+                    'Education & EdTech',
+                    'Professional Services',
+                    'Real Estate',
+                    'Beauty & Personal Care',
+                    'Retail & Consumer Goods',
+                    'Hospitality & Travel',
+                    'Media & Publishing',
+                ] as $industry)
+                <span class="inline-flex items-center text-sm font-semibold px-4 py-2 rounded-full border"
                       style="background: var(--color-bg); border-color: var(--color-border-strong); color: var(--color-text-muted);">
                     {{ $industry }}
                 </span>
@@ -806,8 +840,9 @@
             <a href="{{ route('blog.show', $post->slug) }}" class="card group flex flex-col overflow-hidden" style="text-decoration: none;">
                 @if($post->featured_image)
                 <div class="overflow-hidden" style="height: 200px;">
-                    <img src="{{ $post->featured_image }}" alt="{{ $post->featured_image_alt ?? $post->title }}"
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->featured_image_alt ?? $post->title }}"
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                         loading="lazy" decoding="async">
                 </div>
                 @else
                 <div class="flex items-center justify-center" style="height: 200px; background: var(--color-surface-2);">

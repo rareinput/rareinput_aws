@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shopify Development Agency — Build a Store That Actually Sells | Rare Input</title>
     <meta name="description" content="We build high-converting Shopify stores for D2C brands. Custom themes, speed optimisation, conversion-focused design. Book a free strategy call today.">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="{{ route('landing.shopify-development') }}">
 
     <meta property="og:type" content="website">

@@ -4,25 +4,38 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1e1a17">
     <title>{{ $landingPage->meta_title ?: ($content['hero']['headline'] . ' — Rare Input') }}</title>
     <meta name="description" content="{{ $landingPage->meta_description ?: $content['hero']['subheadline'] }}">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="{{ $landingPage->noindex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' }}">
     <link rel="canonical" href="{{ url('/' . $landingPage->slug) }}">
+    <link rel="alternate" hreflang="en" href="{{ url('/' . $landingPage->slug) }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/' . $landingPage->slug) }}">
 
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="{{ $landingPage->meta_title ?: $content['hero']['headline'] . ' — Rare Input' }}">
+    @php $lpOgTitle = $landingPage->meta_title ?: $content['hero']['headline'] . ' — Rare Input'; @endphp
+    <meta property="og:type"    content="website">
+    <meta property="og:locale"  content="en_US">
+    <meta property="og:title"   content="{{ $lpOgTitle }}">
     <meta property="og:description" content="{{ $landingPage->meta_description ?: $content['hero']['subheadline'] }}">
-    <meta property="og:url" content="{{ url('/' . $landingPage->slug) }}">
+    <meta property="og:url"      content="{{ url('/' . $landingPage->slug) }}">
     <meta property="og:site_name" content="Rare Input">
     @if($landingPage->og_image)
     <meta property="og:image" content="{{ asset('storage/' . $landingPage->og_image) }}">
-    <meta name="twitter:image" content="{{ asset('storage/' . $landingPage->og_image) }}">
+    @else
+    <meta property="og:image" content="{{ config('app.url') }}/og-default.jpg">
     @endif
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $landingPage->meta_title ?: $content['hero']['headline'] . ' — Rare Input' }}">
+    <meta property="og:image:width"  content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type"   content="image/jpeg">
+    <meta property="og:image:alt"    content="{{ $lpOgTitle }}">
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:site"        content="@rareinput">
+    <meta name="twitter:title"       content="{{ $lpOgTitle }}">
     <meta name="twitter:description" content="{{ $landingPage->meta_description ?: $content['hero']['subheadline'] }}">
+    <meta name="twitter:image"       content="{{ $landingPage->og_image ? asset('storage/' . $landingPage->og_image) : config('app.url') . '/og-default.jpg' }}">
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/favicon.svg">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @foreach(json_decode(\App\Models\Setting::get('head_scripts', '[]'), true) ?? [] as $script)
         {!! $script['code'] !!}
