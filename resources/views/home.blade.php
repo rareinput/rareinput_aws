@@ -74,8 +74,8 @@
             </div>
 
             {{-- Right — fading dashboard carousel --}}
-            <div class="hidden lg:flex items-center justify-center">
-                <div class="relative" style="width: 420px; height: 480px;">
+            <div class="flex items-center justify-center lg:justify-center mt-10 lg:mt-0">
+                <div class="relative hero-card-wrap" style="width: 420px; height: 480px;">
 
                     {{-- Slide 1: Campaign Performance --}}
                     <div class="hero-slide absolute rounded-2xl p-7" style="inset: 0; background: #fff; box-shadow: 0 24px 64px rgba(30,26,23,0.13); border: 1px solid var(--color-border); opacity: 1; transition: opacity 0.7s ease;">
@@ -363,6 +363,7 @@
     }
     @media (max-width: 639px) {
         .tools-3d-wrap { transform: scale(0.6); transform-origin: center center; }
+        .hero-card-wrap { transform: scale(0.78); transform-origin: top center; }
     }
 </style>
 <script>
@@ -483,23 +484,55 @@
 </section>
 
 {{-- ── Social Proof Strip ────────────────────────────────────── --}}
-<section class="px-6 py-5 border-b" style="background-color: var(--color-surface); border-color: var(--color-border);">
+<section class="px-6 py-16 border-b" style="background-color: var(--color-surface); border-color: var(--color-border);">
     <div class="mx-auto" style="max-width: var(--max-width);">
-        <div class="flex flex-wrap items-center justify-center gap-10">
+        <div class="flex flex-wrap items-center justify-center gap-12" id="stats-strip">
             @foreach([
-                ['50+', 'Brands Scaled'],
-                ['3.9x', 'Avg. ROAS Delivered'],
-                ['210%', 'Avg. Organic Growth'],
-                ['24h', 'Response Guarantee'],
-            ] as [$stat, $label])
+                ['50', '+', '', 'Brands Scaled'],
+                ['3.9', '', 'x', 'Avg. ROAS Delivered'],
+                ['210', '', '%', 'Avg. Organic Growth'],
+                ['24', '', 'h', 'Response Guarantee'],
+            ] as [$num, $prefix, $suffix, $label])
             <div class="flex items-center gap-3">
-                <span class="font-extrabold" style="font-size: 1.25rem; color: var(--color-heading); letter-spacing: -0.03em;">{{ $stat }}</span>
-                <span class="text-xs font-medium" style="color: var(--color-text-muted);">{{ $label }}</span>
+                <span class="stat-num font-extrabold" data-target="{{ $num }}" data-prefix="{{ $prefix }}" data-suffix="{{ $suffix }}" style="font-size: 1.6rem; color: var(--color-heading); letter-spacing: -0.03em;">{{ $prefix }}{{ $num }}{{ $suffix }}</span>
+                <span class="text-sm font-medium" style="color: var(--color-text-muted);">{{ $label }}</span>
             </div>
             @endforeach
         </div>
     </div>
 </section>
+<script>
+(function () {
+    var strip = document.getElementById('stats-strip');
+    var animated = false;
+    function animateStats() {
+        if (animated) { return; }
+        animated = true;
+        strip.querySelectorAll('.stat-num').forEach(function (el) {
+            var target = parseFloat(el.dataset.target);
+            var prefix = el.dataset.prefix || '';
+            var suffix = el.dataset.suffix || '';
+            var isDecimal = target % 1 !== 0;
+            var start = 0;
+            var duration = 1400;
+            var startTime = null;
+            function step(ts) {
+                if (!startTime) { startTime = ts; }
+                var progress = Math.min((ts - startTime) / duration, 1);
+                var ease = 1 - Math.pow(1 - progress, 3);
+                var val = start + (target - start) * ease;
+                el.textContent = prefix + (isDecimal ? val.toFixed(1) : Math.round(val)) + suffix;
+                if (progress < 1) { requestAnimationFrame(step); }
+            }
+            requestAnimationFrame(step);
+        });
+    }
+    var observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { animateStats(); }
+    }, { threshold: 0.5 });
+    observer.observe(strip);
+})();
+</script>
 
 {{-- ── Services Accordion ────────────────────────────────── --}}
 <section id="services" class="px-6 py-24 border-t" style="background-color: var(--color-brand-900); border-color: rgba(255,255,255,0.06);">
@@ -586,6 +619,19 @@
     </div>
 </section>
 
+{{-- ── Service CTA Banner ───────────────────────────────────── --}}
+<div class="px-6 py-6" style="background-color: var(--color-bg);">
+    <div class="mx-auto" style="max-width: var(--max-width);">
+        <div class="flex items-center justify-between gap-6 rounded-full px-8 py-5" style="background-color: var(--color-surface-2); border: 1px solid var(--color-border);">
+            <p class="font-semibold" style="font-size: clamp(0.95rem, 1.5vw, 1.05rem); color: var(--color-heading);">Ready to build something that actually grows your business?</p>
+            <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 font-semibold text-sm whitespace-nowrap rounded-full shrink-0" style="padding: 0.75rem 1.75rem; background: var(--color-accent-dark); color: #fff;">
+                Start The Journey
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+        </div>
+    </div>
+</div>
+
 <script>
     function openAccordion(index) {
         const items = document.querySelectorAll('#services-accordion .accordion-item');
@@ -611,6 +657,8 @@
         });
     }
 </script>
+
+{{-- ── Service CTA Banner ───────────────────────────────────── --}}
 
 {{-- ── How We Work ─────────────────────────────────────────── --}}
 <section class="px-6 py-24" style="background-color: var(--color-bg);">
@@ -679,6 +727,19 @@
     </div>
 </section>
 
+{{-- ── CTA Banner ────────────────────────────────────────────── --}}
+<section class="px-6 py-24 text-center" style="background-color: var(--color-surface);">
+    <div class="mx-auto" style="max-width: 600px;">
+        <span class="section-label">Ready to grow?</span>
+        <h2 class="font-extrabold mb-5" style="font-size: 2.25rem; letter-spacing: -0.03em; line-height: 1.2; color: var(--color-heading);">Most projects start with<br>a 20-minute call</h2>
+        <p class="leading-relaxed mb-10" style="font-size: 1rem; color: var(--color-text-muted);">No pitch deck, no pressure. Just a straight conversation about your goals and whether we're the right fit.</p>
+        <a href="{{ route('contact') }}" class="btn-accent">
+            Book a Free Call
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+</section>
+
 {{-- ── FAQ ───────────────────────────────────────────────────── --}}
 <section class="px-6 py-24" style="background-color: var(--color-brand-950);">
     <div class="mx-auto" style="max-width: var(--max-width);">
@@ -742,19 +803,6 @@
         });
     }
 </script>
-
-{{-- ── CTA Banner ────────────────────────────────────────────── --}}
-<section class="px-6 py-24 text-center" style="background-color: var(--color-surface);">
-    <div class="mx-auto" style="max-width: 600px;">
-        <span class="section-label">Ready to grow?</span>
-        <h2 class="font-extrabold mb-5" style="font-size: 2.25rem; letter-spacing: -0.03em; line-height: 1.2; color: var(--color-heading);">Most projects start with<br>a 20-minute call</h2>
-        <p class="leading-relaxed mb-10" style="font-size: 1rem; color: var(--color-text-muted);">No pitch deck, no pressure. Just a straight conversation about your goals and whether we're the right fit.</p>
-        <a href="{{ route('contact') }}" class="btn-accent">
-            Book a Free Call
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-    </div>
-</section>
 
 
 </x-layouts.public>

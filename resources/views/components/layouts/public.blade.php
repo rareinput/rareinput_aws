@@ -142,7 +142,7 @@
                 </div>
 
                 <a href="{{ route('blog.index') }}" class="nav-link">Blog</a>
-                <a href="{{ route('contact') }}" class="btn-primary" style="padding: 0.55rem 1.25rem; font-size: 0.875rem;">Get in Touch</a>
+                <a href="{{ route('contact') }}" class="btn-primary" style="padding: 0.55rem 1.25rem; font-size: 0.875rem;">Book a Call</a>
             </nav>
 
             {{-- Mobile toggle --}}
@@ -183,7 +183,7 @@
 
             <a href="{{ route('blog.index') }}" class="nav-link block text-base">Blog</a>
             <div class="pt-2">
-                <a href="{{ route('contact') }}" class="btn-primary">Get in Touch</a>
+                <a href="{{ route('contact') }}" class="btn-primary">Book a Call</a>
             </div>
         </div>
     </header>
