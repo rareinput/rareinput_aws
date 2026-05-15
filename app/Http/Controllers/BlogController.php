@@ -11,8 +11,10 @@ class BlogController extends Controller
     public function index(): View
     {
         $posts = Post::published()->with('categories')->latest('published_at')->paginate(9);
+        $categories = Category::whereHas('posts', fn ($q) => $q->published())->withCount(['posts' => fn ($q) => $q->published()])->orderByDesc('posts_count')->get();
+        $recentPosts = Post::published()->latest('published_at')->limit(5)->get(['id', 'title', 'slug', 'published_at']);
 
-        return view('blog.index', compact('posts'));
+        return view('blog.index', compact('posts', 'categories', 'recentPosts'));
     }
 
     public function category(string $slug): View

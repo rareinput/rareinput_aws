@@ -29,6 +29,24 @@
             </div>
         </div>
 
+        {{-- Blog Layout --}}
+        <div class="mb-8 p-5 rounded-xl border flex items-center justify-between" style="background-color: var(--color-bg); border-color: var(--color-border);">
+            <div>
+                <h2 class="text-base font-bold" style="color: var(--color-heading);">Blog Layout</h2>
+                <p class="text-xs mt-0.5" style="color: var(--color-text-muted);">Choose how posts are displayed on the blog index page.</p>
+            </div>
+            <div class="flex items-center gap-2" style="flex-shrink:0;">
+                <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="blog_layout" value="list" {{ $blogLayout === 'list' ? 'checked' : '' }} class="accent-[var(--color-heading)]">
+                    <span class="text-sm font-medium" style="color: var(--color-heading);">List</span>
+                </label>
+                <label class="flex items-center gap-1.5 cursor-pointer ml-4">
+                    <input type="radio" name="blog_layout" value="grid" {{ $blogLayout === 'grid' ? 'checked' : '' }} class="accent-[var(--color-heading)]">
+                    <span class="text-sm font-medium" style="color: var(--color-heading);">List</span>
+                </label>
+            </div>
+        </div>
+
         <div class="grid gap-8" style="grid-template-columns: 1fr 1fr;">
 
             {{-- Head Scripts --}}

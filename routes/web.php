@@ -1,24 +1,26 @@
 <?php
 
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\SitemapController;
-use App\Http\Controllers\CareersController;
-use App\Http\Controllers\JobApplicationController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JobPostingController;
+use App\Http\Controllers\Admin\LandingPageController;
+use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ScriptsController;
 use App\Http\Controllers\Admin\SequenceController;
 use App\Http\Controllers\Admin\SubscriberController;
-use App\Http\Controllers\Admin\LandingPageController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ScriptsController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CareersController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\LandingPagePublicController;
+use App\Http\Controllers\NewsletterTrackingController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\SubscribeController;
 use Illuminate\Support\Facades\Route;
 
 // Hardcoded landing pages (reference templates — comment out before going to production)
@@ -44,7 +46,6 @@ Route::get('/services/performance-marketing', [ServiceController::class, 'perfor
 Route::get('/services/email-marketing', [ServiceController::class, 'emailMarketing'])->name('services.email-marketing');
 Route::get('/services/social-media', [ServiceController::class, 'socialMedia'])->name('services.social-media');
 
-
 Route::view('/privacy-policy', 'privacy-policy')->name('privacy-policy');
 Route::view('/terms', 'terms')->name('terms');
 Route::view('/faq', 'faq')->name('faq');
@@ -57,7 +58,13 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/category/{slug}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
+// Newsletter tracking
+Route::get('/nl/open/{newsletter}/{token}', [NewsletterTrackingController::class, 'open'])->name('nl.open');
+Route::get('/nl/click/{newsletter}/{token}', [NewsletterTrackingController::class, 'click'])->name('nl.click');
+
 Route::post('/subscribe', [SubscribeController::class, 'store'])->name('subscribe');
+Route::get('/subscribed', [SubscribeController::class, 'thankyou'])->name('subscribe.thankyou');
+Route::post('/subscribed/name', [SubscribeController::class, 'saveName'])->name('subscribe.save-name');
 Route::get('/unsubscribe/{token}', [SubscribeController::class, 'unsubscribe'])->name('unsubscribe');
 
 // Admin routes (authenticated)
@@ -75,6 +82,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('subscribers', SubscriberController::class)->except(['show']);
     Route::resource('tags', TagController::class)->except(['show']);
     Route::resource('sequences', SequenceController::class);
+    Route::resource('newsletters', NewsletterController::class);
     Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::get('scripts', [ScriptsController::class, 'edit'])->name('scripts.edit');
     Route::put('scripts', [ScriptsController::class, 'update'])->name('scripts.update');
