@@ -51,7 +51,7 @@
                 <p style="color: var(--color-text-muted); font-size: 1rem;">No posts yet. Check back soon.</p>
             </div>
         @else
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem;">
                 @foreach ($posts as $post)
                 <article class="card" style="overflow: hidden; display: flex; flex-direction: column;">
                     @if ($post->featured_image)
